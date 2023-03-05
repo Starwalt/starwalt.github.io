@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>File Upload and Convert to JSON</title>
+  </head>
+  <body>
+    <input type="file" id="fileInput">
+    <button onclick="convertToJson()">Convert to JSON</button>
+    <script>
+      function convertToJson() {
+        // Get the uploaded file
+        var fileInput = document.getElementById("fileInput");
+        var file = fileInput.files[0];
+        var reader = new FileReader();
+        reader.readAsText(file);
+        reader.onload = function() {
+          var fileContent = reader.result;
+
+          // Convert the file to JSON
+          var jsonObject = JSON.parse(fileContent);
+          var jsonContent = JSON.stringify(jsonObject, null, 2);
+          console.log(jsonContent);
+        };
+      }
+    </script>
+  </body>
+</html>
