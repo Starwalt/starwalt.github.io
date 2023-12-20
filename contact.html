@@ -64,7 +64,7 @@ Dimple Enterprises Company provides services like Online Websites Development, S
         <div class="contact-form">
        
        
-         <form action="https://formspree.io/f/mayrwbpj" method="POST">
+           <form id="contactForm" action="https://formspree.io/f/mayrwbpj" method="POST">
             <div class="row">
               <div class="input50">
                 <input type="text" name="first_name" placeholder="First Name" required />
@@ -145,7 +145,39 @@ s0.parentNode.insertBefore(s1,s0);
 </script>
     
 <!--End of Tawk.to Script-->
+<!-- Add this script at the end of your HTML body -->
+<script>
+  // Get the form element
+  const form = document.getElementById('contactForm');
 
+  // Add a listener for form submission
+  form.addEventListener('submit', function(event) {
+    // Prevent the default form submission behavior
+    event.preventDefault();
+
+    // Perform form submission using Fetch API or XMLHttpRequest
+    fetch(form.action, {
+      method: form.method,
+      body: new FormData(form)
+    })
+    .then(response => {
+      if (response.ok) {
+        // Form submission successful
+        // Redirect to the main page after submission
+        window.location.href = 'contact.html'; // Replace '/' with your main page URL
+
+        // Show a "Thank You" message or popup here
+        alert('Thank you for your submission!');
+      } else {
+        // Handle errors if the form submission fails
+        alert('Oops! Something went wrong. Please try again.');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  });
+</script>
 
     <script src="js/script.js"></script>
   </body>
