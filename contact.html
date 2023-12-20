@@ -63,35 +63,36 @@ Dimple Enterprises Company provides services like Online Websites Development, S
       <div class="contact">
         <div class="contact-form">
        
-             <form method="post" action="contact-form-process.php">
+       <form method="post" action="mailto:starwaltcompany@gmail.com">
             <div class="row">
               <div class="input50">
-                <input type="text" placeholder="First Name" />
+                <input type="text" name="first_name" placeholder="First Name" required />
               </div>
               <div class="input50">
-                <input type="text" placeholder="Last Name" />
+                <input type="text" name="last_name" placeholder="Last Name" required />
               </div>
             </div>
             <div class="row">
               <div class="input50">
-                <input type="text" placeholder="Email" />
+                <input type="email" name="email" placeholder="Email" required />
               </div>
               <div class="input50">
-                <input type="text" placeholder="Subject" />
+                <input type="text" name="subject" placeholder="Subject" required />
               </div>
             </div>
             <div class="row">
               <div class="input100">
-                <textarea placeholder="Message"></textarea>
+                <textarea name="message" placeholder="Message" required></textarea>
               </div>
             </div>
             <div class="row">
               <div class="input100">
                 <input type="submit" value="Send" />
-                
               </div>
             </div>
           </form>
+
+          
         </div>
 
         <div class="contact-info">
