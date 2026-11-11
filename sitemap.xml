@@ -1,16 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-
-
-<url>
-  <loc>https://starwalt.github.io/blog/</loc>
-  <lastmod>2022-05-09T10:34:32+00:00</lastmod>
-</url>
-
-
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://darshan-eeshwar.github.io/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/quote.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/terms.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/privacypolicy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/consultation.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/project-brief.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/resources.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/guides/website-cost-india.html</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/guides/website-launch-checklist.html</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/guides/local-seo-vellore.html</loc><changefreq>yearly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/search.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/readiness-assessment.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/ta.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/payment-safety.html</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/quote-comparison.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/timeline-planner.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/brand-planner.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/seo-snippet-planner.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/solution-finder.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/maintenance-planner.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/tools.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/homepage-copy-planner.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/image-optimizer.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/social-calendar.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/alt-text-planner.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/html-accessibility-checker.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/seo-meta-analyzer.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/local-business-schema.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/robots-txt-generator.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/xml-sitemap-builder.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/faq-schema-generator.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/utm-link-builder.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/whatsapp-link-builder.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/business-dashboards.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>  <url><loc>https://darshan-eeshwar.github.io/digital-business-card.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/consultation-scheduler.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/review-request-builder.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/email-signature-builder.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/copy-readability-analyzer.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/redirect-map-builder.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/pricing-table-builder.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://darshan-eeshwar.github.io/testimonial-showcase-builder.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url>
+    <loc>https://darshan-eeshwar.github.io/search-console-opportunity-planner.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://darshan-eeshwar.github.io/project-proposal-builder.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://darshan-eeshwar.github.io/content-inventory-planner.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://darshan-eeshwar.github.io/seo-keyword-map-builder.html</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://darshan-eeshwar.github.io/website-conversion-tracker.html</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>

@@ -1,0 +1,366 @@
+[
+  {
+    "title": "Website project proposal builder",
+    "description": "Create a branded proposal draft with client details, scope, milestones and itemized pricing.",
+    "keywords": "proposal builder website project scope deliverables timeline price quote client",
+    "url": "project-proposal-builder.html",
+    "type": "Tool"
+  },
+  {
+    "title": "Search Console opportunity planner",
+    "description": "Analyze a Google Search Console Queries or Pages CSV locally and prioritize CTR and ranking reviews.",
+    "keywords": "google search console GSC queries pages clicks impressions CTR position SEO search performance",
+    "url": "search-console-opportunity-planner.html",
+    "type": "Tool"
+  },
+  {
+    "title": "Business dashboards",
+    "description": "Executive, sales, marketing, finance and supply chain dashboards with CSV imports and reporting.",
+    "keywords": "revenue profit campaigns inventory orders metrics KPI dashboard",
+    "url": "business-dashboards.html",
+    "type": "Tool"
+  },
+  {
+    "title": "Website development",
+    "description": "Responsive business websites, landing pages and portfolios designed to generate enquiries.",
+    "keywords": "web design development mobile responsive business",
+    "url": "index.html#services",
+    "type": "Service"
+  },
+  {
+    "title": "E-commerce and product catalogues",
+    "description": "Customer-friendly catalogues, commerce planning and payment integration guidance.",
+    "keywords": "shop ecommerce products payments online store",
+    "url": "index.html#services",
+    "type": "Service"
+  },
+  {
+    "title": "Local SEO and visibility",
+    "description": "Search-friendly foundations and local visibility guidance for businesses.",
+    "keywords": "seo google business profile local search vellore",
+    "url": "index.html#services",
+    "type": "Service"
+  },
+  {
+    "title": "Digital marketing",
+    "description": "Campaign planning, social content and lead-generation support.",
+    "keywords": "marketing campaigns social leads growth",
+    "url": "index.html#services",
+    "type": "Service"
+  },
+  {
+    "title": "Website maintenance",
+    "description": "Content updates, performance checks and ongoing technical support.",
+    "keywords": "support updates care maintenance performance",
+    "url": "index.html#services",
+    "type": "Service"
+  },
+  {
+    "title": "Business automation",
+    "description": "Forms and workflows that reduce repetitive work and improve follow-up.",
+    "keywords": "automation forms workflow integration",
+    "url": "index.html#services",
+    "type": "Service"
+  },
+  {
+    "title": "Website pricing and packages",
+    "description": "Starter, growth and commerce package information with an interactive estimator.",
+    "keywords": "price cost budget packages quote estimate",
+    "url": "index.html#pricing",
+    "type": "Planning"
+  },
+  {
+    "title": "Request a detailed quote",
+    "description": "Submit goals, requirements, budget and timeline for a tailored project response.",
+    "keywords": "quote proposal project request",
+    "url": "quote.html",
+    "type": "Tool"
+  },
+  {
+    "title": "Request a consultation time",
+    "description": "Prepare a WhatsApp request for a preferred consultation date and time.",
+    "keywords": "appointment meeting call whatsapp consultation",
+    "url": "consultation.html",
+    "type": "Tool"
+  },
+  {
+    "title": "Project brief builder",
+    "description": "Organise goals, features, timeline and budget, then download a project brief.",
+    "keywords": "requirements scope brief download planning",
+    "url": "project-brief.html",
+    "type": "Tool"
+  },
+  {
+    "title": "Website cost in India",
+    "description": "A practical guide to scope, indicative pricing and recurring website costs.",
+    "keywords": "india website price cost budget hosting domain",
+    "url": "guides/website-cost-india.html",
+    "type": "Guide"
+  },
+  {
+    "title": "Business website launch checklist",
+    "description": "Prepare content, access, testing, security and post-launch maintenance.",
+    "keywords": "launch checklist content testing security",
+    "url": "guides/website-launch-checklist.html",
+    "type": "Guide"
+  },
+  {
+    "title": "Local SEO guide for Vellore businesses",
+    "description": "Practical foundations for improving nearby customer discovery.",
+    "keywords": "vellore local seo google reviews search",
+    "url": "guides/local-seo-vellore.html",
+    "type": "Guide"
+  },
+  {
+    "title": "Privacy policy",
+    "description": "Information about how the website handles enquiries and visitor information.",
+    "keywords": "privacy data forms information",
+    "url": "privacypolicy.html",
+    "type": "Policy"
+  },
+  {
+    "title": "General service terms",
+    "description": "General information about quotes, scope, payments, materials, timelines and results.",
+    "keywords": "terms payment revisions ownership scope",
+    "url": "terms.html",
+    "type": "Policy"
+  },
+  {
+    "title": "Frequently asked questions",
+    "description": "Answers about timelines, mobile design, maintenance, hosting and redesigns.",
+    "keywords": "faq questions hosting mobile maintenance timeline",
+    "url": "index.html#faq",
+    "type": "Help"
+  },
+  {
+    "title": "Digital readiness assessment",
+    "description": "Answer 12 questions about website, visibility, trust and lead handling, then download an improvement report.",
+    "keywords": "assessment score audit readiness website seo trust leads report",
+    "url": "readiness-assessment.html",
+    "type": "Tool"
+  },
+  {
+    "title": "டிம்பிள் என்டர்பிரைசஸ் தமிழ் பக்கம்",
+    "description": "இணையதளம், டிஜிட்டல் மார்க்கெட்டிங், உள்ளூர் SEO மற்றும் வணிக வளர்ச்சி சேவைகள் தமிழில்.",
+    "keywords": "tamil தமிழ் இணையதளம் வெல்லூர் வணிகம் சேவை விலை தொடர்பு",
+    "url": "ta.html",
+    "type": "தமிழ்"
+  },
+  {
+    "title": "Payment verification and safety",
+    "description": "Verify beneficiary details, recognise payment red flags and use official contact channels before paying.",
+    "keywords": "payment safety fraud scam otp verify bank qr",
+    "url": "payment-safety.html",
+    "type": "Safety"
+  },
+  {
+    "title": "Website quote comparison tool",
+    "description": "Compare two website proposals across scope, ownership, support, security and transparent costs.",
+    "keywords": "vendor proposal quote compare cost scope hosting ownership",
+    "url": "quote-comparison.html",
+    "type": "Tool"
+  },
+  {
+    "title": "Project timeline planner",
+    "description": "Estimate working-day milestones for starter, business and commerce website projects and download calendar files.",
+    "keywords": "timeline schedule milestones dates calendar ics launch project",
+    "url": "timeline-planner.html",
+    "type": "Tool"
+  },
+  {
+    "title": "Accessible brand palette planner",
+    "description": "Preview a business name and tagline, check WCAG colour contrast, and download brand notes and CSS variables.",
+    "keywords": "brand colours palette contrast wcag accessibility css logo tagline",
+    "url": "brand-planner.html",
+    "type": "Tool"
+  },
+  {
+    "title": "SEO and social snippet planner",
+    "description": "Preview page titles, descriptions, URLs and social cards, then download metadata and an SEO brief.",
+    "keywords": "seo meta title description google snippet social open graph twitter canonical",
+    "url": "seo-snippet-planner.html",
+    "type": "Tool"
+  },
+  {
+    "title": "Website solution finder",
+    "description": "Answer transparent business-goal, content, commerce and budget questions to find a suitable starting package.",
+    "keywords": "recommend package starter growth commerce quiz website solution",
+    "url": "solution-finder.html",
+    "type": "Tool"
+  },
+  {
+    "title": "Website maintenance planner",
+    "description": "Track weekly, monthly, quarterly and annual website tasks and download a 12-month reminder calendar.",
+    "keywords": "maintenance checklist calendar recurring security backup content performance",
+    "url": "maintenance-planner.html",
+    "type": "Tool"
+  },
+  {
+    "title": "Business tools hub",
+    "description": "Browse, search, filter and favourite free website planning, SEO, brand, maintenance and decision tools.",
+    "keywords": "tools hub directory favourites planners calculators business",
+    "url": "tools.html",
+    "type": "Directory"
+  },
+  {
+    "title": "Homepage copy planner",
+    "description": "Draft and preview a clear headline, audience, promise, services, proof, CTA and FAQ ideas, then download Markdown.",
+    "keywords": "copywriting homepage headline tagline services content cta faq",
+    "url": "homepage-copy-planner.html",
+    "type": "Tool"
+  },
+  {
+    "title": "Website image optimizer",
+    "description": "Resize and compress images to JPEG or WebP locally in the browser with before-and-after size comparison.",
+    "keywords": "image compress resize webp jpeg photo optimization performance",
+    "url": "image-optimizer.html",
+    "type": "Tool"
+  },
+  {
+    "title": "Social content calendar",
+    "description": "Plan seven social media posts with platform, theme, caption, CTA, readiness tracking and CSV export.",
+    "keywords": "social media content calendar instagram facebook linkedin posts captions csv",
+    "url": "social-calendar.html",
+    "type": "Tool"
+  },
+  {
+    "title": "Image alt-text planner",
+    "description": "Preview local images, draft context-aware alternative text, validate common issues and export implementation CSV.",
+    "keywords": "alt text accessibility images decorative wcag csv",
+    "url": "alt-text-planner.html",
+    "type": "Tool"
+  },
+  {
+    "title": "HTML accessibility checker",
+    "description": "Inspect local HTML for document language, title, headings, image alt attributes, form labels, accessible names and duplicate IDs.",
+    "keywords": "html accessibility audit checker wcag alt labels headings links buttons",
+    "url": "html-accessibility-checker.html",
+    "type": "Tool"
+  },
+  {
+    "title": "SEO meta-tag analyzer",
+    "description": "Analyze HTML metadata locally and generate recommended search and social tags.",
+    "keywords": "seo meta title description canonical robots open graph twitter card analyzer",
+    "url": "seo-meta-analyzer.html",
+    "type": "Tool"
+  },
+  {
+    "title": "Local Business schema generator",
+    "description": "Create JSON-LD structured data for business details, address, contact information and hours.",
+    "keywords": "local business schema json ld structured data seo generator opening hours address",
+    "url": "local-business-schema.html",
+    "type": "Tool"
+  },
+  {
+    "title": "robots.txt generator and checker",
+    "description": "Create search-engine crawl rules with presets, sitemap support and safety warnings.",
+    "keywords": "robots txt seo crawler crawl control disallow allow sitemap generator checker",
+    "url": "robots-txt-generator.html",
+    "type": "Tool"
+  },
+  {
+    "title": "XML sitemap builder and validator",
+    "description": "Validate page URLs, change frequencies, priorities and dates, then download sitemap.xml.",
+    "keywords": "xml sitemap generator builder validator seo url priority changefreq lastmod",
+    "url": "xml-sitemap-builder.html",
+    "type": "Tool"
+  },
+  {
+    "title": "FAQ schema generator",
+    "description": "Create validated FAQPage JSON-LD with flexible question-and-answer rows.",
+    "keywords": "faq schema json ld structured data question answer generator seo",
+    "url": "faq-schema-generator.html",
+    "type": "Tool"
+  },
+  {
+    "title": "UTM campaign link builder",
+    "description": "Create validated tracking URLs for advertising, email, social media and WhatsApp campaigns.",
+    "keywords": "utm url campaign link builder tracking google ads facebook instagram email whatsapp",
+    "url": "utm-link-builder.html",
+    "type": "Tool"
+  },
+  {
+    "title": "WhatsApp enquiry-link builder",
+    "description": "Create validated prefilled WhatsApp links for quotes, consultations and customer support.",
+    "keywords": "whatsapp wa me link message enquiry quote consultation support generator",
+    "url": "whatsapp-link-builder.html",
+    "type": "Tool"
+  },
+  {
+    "title": "Digital business-card and vCard generator",
+    "description": "Create a digital contact preview and downloadable VCF contact file.",
+    "keywords": "digital business card vcard vcf contact phone email download generator",
+    "url": "digital-business-card.html",
+    "type": "Tool"
+  },
+  {
+    "title": "Consultation scheduler",
+    "description": "Create customer meeting summaries, Google Calendar links and downloadable ICS invitations.",
+    "keywords": "consultation meeting appointment scheduler calendar ics google customer",
+    "url": "consultation-scheduler.html",
+    "type": "Tool"
+  },
+  {
+    "title": "Customer review-request builder",
+    "description": "Create personalised, ethical review messages for Google, Facebook, Justdial or a custom page.",
+    "keywords": "customer review testimonial request google facebook justdial whatsapp message",
+    "url": "review-request-builder.html",
+    "type": "Tool"
+  },
+  {
+    "title": "Professional email-signature builder",
+    "description": "Create branded HTML and plain-text email signatures with live preview.",
+    "keywords": "email signature html business contact logo branding generator",
+    "url": "email-signature-builder.html",
+    "type": "Tool"
+  },
+  {
+    "title": "Website-copy readability analyzer",
+    "description": "Measure reading time, sentence length, long sentences and keyword usage privately.",
+    "keywords": "website copy readability word count reading time sentence keyword density analyzer",
+    "url": "copy-readability-analyzer.html",
+    "type": "Tool"
+  },
+  {
+    "title": "Website redirect-map builder and validator",
+    "description": "Detect duplicate sources, loops, chains and invalid URLs, then export server redirect rules.",
+    "keywords": "redirect map 301 302 url migration apache nginx netlify csv validator",
+    "url": "redirect-map-builder.html",
+    "type": "Tool"
+  },
+  {
+    "title": "Pricing-package table builder",
+    "description": "Create three branded service packages with feature lists, recommended plan and calls to action.",
+    "keywords": "pricing table package plans features recommended html generator",
+    "url": "pricing-table-builder.html",
+    "type": "Tool"
+  },
+  {
+    "title": "Customer testimonial showcase builder",
+    "description": "Create branded testimonial cards with ratings, customer attribution and optional source links.",
+    "keywords": "testimonial customer review showcase cards rating html builder",
+    "url": "testimonial-showcase-builder.html",
+    "type": "Tool"
+  },
+  {
+    "title": "Website content inventory planner",
+    "description": "Track website pages, content owners, priorities, statuses and due dates in your browser.",
+    "keywords": "website content inventory pages owner status priority due date csv planner",
+    "url": "content-inventory-planner.html",
+    "type": "Tool"
+  },
+  {
+    "title": "SEO keyword-to-page map builder",
+    "description": "Map target keywords and search intent to website pages and flag conflicting URL assignments.",
+    "keywords": "seo keyword map search intent target page url cannibalization content planning csv",
+    "url": "seo-keyword-map-builder.html",
+    "type": "Tool"
+  },
+  {
+    "title": "Website funnel tracker",
+    "description": "Track monthly visits, enquiries, qualified leads, sales and marketing spend privately, compare saved months and export CSV.",
+    "keywords": "website conversion funnel tracker visitors visits enquiries leads qualified sales revenue marketing spend cpl conversion rate",
+    "url": "website-conversion-tracker.html",
+    "type": "Tool"
+  }
+]
