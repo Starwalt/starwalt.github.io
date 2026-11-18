@@ -211,3 +211,8 @@
 .whatsapp-tool{justify-self:start;background:#128c4c;color:#fff}
 .tool-note{text-align:center;color:#64748b;margin:1rem 0 0;font-size:.9rem}
 @media (max-width:820px){.business-tools-grid{grid-template-columns:1fr}.tool-panel{border-radius:18px}.tool-actions .btn{flex:1 1 140px}}
+
+.content-plan-result{display:grid;gap:.65rem}
+.content-day{padding:.75rem;border-radius:12px;background:#fff;border:1px solid #d9e3f7}
+.content-day b{display:block;color:#1d5cff;margin-bottom:.2rem}
+@media (max-width:520px){.tool-panel-head{align-items:center}.tool-panel .btn{width:100%}}
