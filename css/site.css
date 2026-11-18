@@ -224,3 +224,9 @@
 .metric-card{background:#fff;border:1px solid #d9e3f7;border-radius:12px;padding:.75rem}
 .metric-card b{display:block;color:#1d5cff;font-size:1.15rem}
 @media (max-width:440px){.metric-grid{grid-template-columns:1fr}}
+
+.tool-panel input[type="date"],.tool-panel textarea{width:100%;border:1px solid #cbd5e1;border-radius:12px;padding:.78rem .85rem;background:#fff;color:#0f172a;font:inherit}
+.tool-panel input[type="date"]:focus,.tool-panel textarea:focus{outline:3px solid rgba(29,92,255,.18);border-color:#1d5cff}
+.tool-panel textarea{resize:vertical;min-height:88px}
+.compact-check-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem}
+@media (max-width:440px){.compact-check-grid{grid-template-columns:1fr}}
