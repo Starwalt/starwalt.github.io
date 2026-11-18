@@ -229,3 +229,91 @@ const b=document.querySelector('.menu'),n=document.querySelector('nav');if(b&&n)
     }
   });
 })();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  const formatDate = (value) => {
+    if (!value) return 'To be confirmed';
+    const [year, month, day] = value.split('-').map(Number);
+    return new Intl.DateTimeFormat('en-IN', {day: 'numeric', month: 'short', year: 'numeric'}).format(new Date(year, month - 1, day));
+  };
+  const downloadText = (name, text) => {
+    const blob = new Blob([text], {type: 'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = name;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+  ready(() => {
+    const briefForm = document.getElementById('requirements-brief-form');
+    const briefResult = document.getElementById('brief-result');
+    const briefDownload = document.getElementById('brief-download');
+    let briefText = '';
+    if (briefForm && briefResult) {
+      briefForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const business = document.getElementById('brief-business')?.value.trim();
+        const type = document.getElementById('brief-type')?.value.trim();
+        const goal = document.getElementById('brief-goal')?.value;
+        const pages = [...briefForm.querySelectorAll('input[name="brief-page"]:checked')].map((item) => item.value);
+        const date = formatDate(document.getElementById('brief-date')?.value);
+        const extra = document.getElementById('brief-extra')?.value.trim();
+        if (!business || !type) return;
+        briefText = 'WEBSITE PROJECT BRIEF\n\nBusiness / project: ' + business + '\nBusiness type: ' + type + '\nPrimary goal: ' + goal + '\nRequired pages: ' + (pages.length ? pages.join(', ') : 'To be discussed') + '\nTarget launch: ' + date + '\nExtra requirements: ' + (extra || 'To be discussed') + '\n\nNext step: confirm content, features, ownership, timeline, support and final quotation.';
+        briefResult.textContent = briefText;
+        briefResult.hidden = false;
+        if (briefDownload) briefDownload.disabled = false;
+      });
+      briefDownload?.addEventListener('click', () => {
+        if (briefText) downloadText('starwalt-website-project-brief.txt', briefText);
+      });
+    }
+
+    const paymentForm = document.getElementById('payment-reminder-form');
+    const paymentResult = document.getElementById('payment-result');
+    const paymentCopy = document.getElementById('payment-copy');
+    const paymentWhatsApp = document.getElementById('payment-whatsapp');
+    let paymentMessage = '';
+    if (paymentForm && paymentResult) {
+      paymentForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const name = document.getElementById('payment-name')?.value.trim();
+        const reference = document.getElementById('payment-reference')?.value.trim();
+        const amount = Number(document.getElementById('payment-amount')?.value);
+        const due = document.getElementById('payment-date')?.value;
+        const tone = document.getElementById('payment-tone')?.value;
+        if (!Number.isFinite(amount) || amount <= 0 || !due) return;
+        const formattedAmount = new Intl.NumberFormat('en-IN', {style: 'currency', currency: 'INR', maximumFractionDigits: 0}).format(amount);
+        const greeting = name ? 'Hello ' + name + ',' : 'Hello,';
+        const refText = reference ? ' for ' + reference : '';
+        if (tone === 'overdue') {
+          paymentMessage = greeting + ' this is a follow-up regarding the pending payment of ' + formattedAmount + refText + ', which was due on ' + formatDate(due) + '. Please let us know the expected payment date or contact us if you need any clarification. Thank you.';
+        } else if (tone === 'professional') {
+          paymentMessage = greeting + ' this is a reminder that the payment of ' + formattedAmount + refText + ' is due on ' + formatDate(due) + '. Kindly arrange payment by the due date and share confirmation once completed. Please contact us if you have any questions.';
+        } else {
+          paymentMessage = greeting + ' a friendly reminder that ' + formattedAmount + refText + ' is due on ' + formatDate(due) + '. Please share an update when convenient, and let us know if you need the invoice or any clarification. Thank you!';
+        }
+        paymentResult.textContent = paymentMessage;
+        paymentResult.hidden = false;
+        if (paymentCopy) paymentCopy.disabled = false;
+        if (paymentWhatsApp) {
+          paymentWhatsApp.href = 'https://wa.me/?text=' + encodeURIComponent(paymentMessage);
+          paymentWhatsApp.hidden = false;
+        }
+      });
+      paymentCopy?.addEventListener('click', async () => {
+        if (!paymentMessage) return;
+        try {
+          await navigator.clipboard.writeText(paymentMessage);
+          const old = paymentCopy.textContent;
+          paymentCopy.textContent = 'Copied';
+          setTimeout(() => { paymentCopy.textContent = old; }, 1600);
+        } catch {
+          paymentResult.scrollIntoView({behavior: 'smooth', block: 'center'});
+        }
+      });
+    }
+  });
+})();
