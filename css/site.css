@@ -216,3 +216,11 @@
 .content-day{padding:.75rem;border-radius:12px;background:#fff;border:1px solid #d9e3f7}
 .content-day b{display:block;color:#1d5cff;margin-bottom:.2rem}
 @media (max-width:520px){.tool-panel-head{align-items:center}.tool-panel .btn{width:100%}}
+
+.tool-panel input[type="number"],.tool-panel input[type="url"]{width:100%;border:1px solid #cbd5e1;border-radius:12px;padding:.78rem .85rem;background:#fff;color:#0f172a;font:inherit}
+.tool-panel input[type="number"]:focus,.tool-panel input[type="url"]:focus{outline:3px solid rgba(29,92,255,.18);border-color:#1d5cff}
+.field-help{margin:.15rem 0 0;color:#64748b;font-size:.82rem;line-height:1.5}
+.metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem;margin-top:.75rem}
+.metric-card{background:#fff;border:1px solid #d9e3f7;border-radius:12px;padding:.75rem}
+.metric-card b{display:block;color:#1d5cff;font-size:1.15rem}
+@media (max-width:440px){.metric-grid{grid-template-columns:1fr}}
