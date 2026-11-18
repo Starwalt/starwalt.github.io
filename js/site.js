@@ -134,3 +134,98 @@ const b=document.querySelector('.menu'),n=document.querySelector('nav');if(b&&n)
     }
   });
 })();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  const money = (value) => new Intl.NumberFormat('en-IN', {style: 'currency', currency: 'INR', maximumFractionDigits: 0}).format(value);
+  ready(() => {
+    const breakForm = document.getElementById('breakeven-form');
+    const breakResult = document.getElementById('breakeven-result');
+    if (breakForm && breakResult) {
+      breakForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const budget = Number(document.getElementById('breakeven-budget')?.value);
+        const revenue = Number(document.getElementById('breakeven-revenue')?.value);
+        const margin = Number(document.getElementById('breakeven-margin')?.value);
+        const conversion = Number(document.getElementById('breakeven-conversion')?.value);
+        if (![budget, revenue, margin, conversion].every((value) => Number.isFinite(value) && value > 0) || margin > 100 || conversion > 100) {
+          breakResult.textContent = 'Enter valid positive numbers. Margin and conversion rate must be between 1% and 100%.';
+          breakResult.hidden = false;
+          return;
+        }
+        const profitPerCustomer = revenue * (margin / 100);
+        const customers = Math.ceil(budget / profitPerCustomer);
+        const leads = Math.ceil(customers / (conversion / 100));
+        const salesRevenue = customers * revenue;
+        breakResult.replaceChildren();
+        const intro = document.createElement('strong');
+        intro.textContent = 'Estimated break-even target';
+        const grid = document.createElement('div');
+        grid.className = 'metric-grid';
+        [
+          [customers, 'paying customers'],
+          [leads, 'qualified leads'],
+          [money(profitPerCustomer), 'profit per customer'],
+          [money(salesRevenue), 'sales revenue at target']
+        ].forEach(([value, label]) => {
+          const card = document.createElement('div');
+          card.className = 'metric-card';
+          const number = document.createElement('b');
+          number.textContent = String(value);
+          const caption = document.createElement('span');
+          caption.textContent = label;
+          card.append(number, caption);
+          grid.append(card);
+        });
+        breakResult.append(intro, grid);
+        breakResult.hidden = false;
+      });
+      document.getElementById('breakeven-reset')?.addEventListener('click', () => {
+        breakForm.reset();
+        breakResult.hidden = true;
+        breakResult.textContent = '';
+      });
+    }
+
+    const reviewForm = document.getElementById('review-request-form');
+    const reviewResult = document.getElementById('review-result');
+    const reviewCopy = document.getElementById('review-copy');
+    const reviewWhatsApp = document.getElementById('review-whatsapp');
+    let reviewMessage = '';
+    if (reviewForm && reviewResult) {
+      reviewForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const name = document.getElementById('review-name')?.value.trim();
+        const business = document.getElementById('review-business')?.value.trim() || 'our business';
+        const link = document.getElementById('review-link')?.value.trim();
+        const tone = document.getElementById('review-tone')?.value || 'warm';
+        const greeting = name ? 'Hello ' + name + ',' : 'Hello,';
+        if (tone === 'professional') {
+          reviewMessage = greeting + ' thank you for choosing ' + business + '. We value your feedback. If you have a moment, please share an honest review about your experience' + (link ? ': ' + link : '.') + ' Your feedback helps us improve and helps other customers make an informed decision.';
+        } else if (tone === 'short') {
+          reviewMessage = greeting + ' thank you for choosing ' + business + '. Could you share an honest review of your experience' + (link ? '? ' + link : '?') + ' Thank you for your time.';
+        } else {
+          reviewMessage = greeting + ' thank you for supporting ' + business + '! We hope you had a good experience. When you have a moment, we would really appreciate an honest review' + (link ? ': ' + link : '.') + ' Your feedback means a lot to our team.';
+        }
+        reviewResult.textContent = reviewMessage;
+        reviewResult.hidden = false;
+        if (reviewCopy) reviewCopy.disabled = false;
+        if (reviewWhatsApp) {
+          reviewWhatsApp.href = 'https://wa.me/?text=' + encodeURIComponent(reviewMessage);
+          reviewWhatsApp.hidden = false;
+        }
+      });
+      reviewCopy?.addEventListener('click', async () => {
+        if (!reviewMessage) return;
+        try {
+          await navigator.clipboard.writeText(reviewMessage);
+          const old = reviewCopy.textContent;
+          reviewCopy.textContent = 'Copied';
+          setTimeout(() => { reviewCopy.textContent = old; }, 1600);
+        } catch {
+          reviewResult.scrollIntoView({behavior: 'smooth', block: 'center'});
+        }
+      });
+    }
+  });
+})();
