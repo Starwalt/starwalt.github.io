@@ -317,3 +317,88 @@ const b=document.querySelector('.menu'),n=document.querySelector('nav');if(b&&n)
     }
   });
 })();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  ready(() => {
+    const maintenanceForm = document.getElementById('maintenance-planner-form');
+    const maintenanceResult = document.getElementById('maintenance-result');
+    const maintenanceDownload = document.getElementById('maintenance-download');
+    let maintenanceText = '';
+    if (maintenanceForm && maintenanceResult) {
+      maintenanceForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const type = document.getElementById('maintenance-type')?.value;
+        const frequency = document.getElementById('maintenance-frequency')?.value;
+        const features = [...maintenanceForm.querySelectorAll('input[name="maintenance-feature"]:checked')].map((item) => item.value);
+        const tasks = [
+          ['Security and backups', 'Confirm the site loads securely, create a backup, and check for unexpected changes.'],
+          ['Forms and customer actions', 'Test contact links, forms, phone, WhatsApp, email, booking, and payment actions that apply.'],
+          ['Content accuracy', 'Review service details, prices, team information, opening hours, offers, and contact information.'],
+          ['Performance and mobile', 'Check important pages on mobile, compress new images, and review loading performance.'],
+          ['Search visibility', 'Review page titles, broken links, search performance, local profile details, and recent reviews.'],
+          ['Analytics and improvement', 'Compare traffic and enquiries, identify the strongest pages, and plan one improvement.']
+        ];
+        if (features.includes('Online payments')) tasks.splice(2, 0, ['Payment checks', 'Complete a small test transaction where appropriate and verify confirmation and refund information.']);
+        if (features.includes('Product catalogue')) tasks.splice(3, 0, ['Catalogue checks', 'Review stock, product information, pricing, images, and unavailable items.']);
+        if (features.includes('Booking system')) tasks.splice(2, 0, ['Booking checks', 'Test available slots, confirmation messages, cancellations, and notification delivery.']);
+        maintenanceResult.replaceChildren();
+        tasks.forEach(([title, detail]) => {
+          const card = document.createElement('div');
+          card.className = 'content-day';
+          const heading = document.createElement('b');
+          heading.textContent = title;
+          const copy = document.createElement('span');
+          copy.textContent = detail;
+          card.append(heading, copy);
+          maintenanceResult.append(card);
+        });
+        maintenanceText = 'STARWALT WEBSITE MAINTENANCE PLAN\nWebsite type: ' + type + '\nReview frequency: ' + frequency + '\nFeatures: ' + (features.join(', ') || 'Standard website') + '\n\n' + tasks.map(([title, detail]) => title + '\n' + detail).join('\n\n');
+        maintenanceResult.hidden = false;
+        if (maintenanceDownload) maintenanceDownload.disabled = false;
+      });
+      maintenanceDownload?.addEventListener('click', () => {
+        if (!maintenanceText) return;
+        const blob = new Blob([maintenanceText], {type: 'text/plain'});
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'starwalt-website-maintenance-plan.txt';
+        link.click();
+        URL.revokeObjectURL(url);
+      });
+    }
+
+    const priorityForm = document.getElementById('lead-priority-form');
+    const priorityResult = document.getElementById('lead-priority-result');
+    if (priorityForm && priorityResult) {
+      priorityForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const score = ['lead-timeline', 'lead-clarity', 'lead-budget', 'lead-decision']
+          .reduce((total, id) => total + Number(document.getElementById(id)?.value || 0), 0);
+        const high = score >= 9;
+        const medium = score >= 5 && score < 9;
+        const label = high ? 'High follow-up priority' : medium ? 'Medium follow-up priority' : 'Early-stage enquiry';
+        const className = high ? 'priority-high' : medium ? 'priority-medium' : 'priority-low';
+        const action = high
+          ? 'Recommended next action: arrange a requirements call soon, confirm scope and decision steps, then prepare a written proposal.'
+          : medium
+            ? 'Recommended next action: clarify the main requirement, target date, budget expectations and decision process before proposing.'
+            : 'Recommended next action: share a useful guide or service overview, ask one simple discovery question, and schedule a later follow-up.';
+        priorityResult.replaceChildren();
+        const badge = document.createElement('span');
+        badge.className = 'priority-badge ' + className;
+        badge.textContent = label;
+        const detail = document.createElement('div');
+        detail.textContent = action;
+        priorityResult.append(badge, detail);
+        priorityResult.hidden = false;
+      });
+      document.getElementById('lead-priority-reset')?.addEventListener('click', () => {
+        priorityForm.reset();
+        priorityResult.hidden = true;
+        priorityResult.textContent = '';
+      });
+    }
+  });
+})();
