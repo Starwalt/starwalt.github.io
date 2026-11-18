@@ -63,3 +63,74 @@ const b=document.querySelector('.menu'),n=document.querySelector('nav');if(b&&n)
     }
   });
 })();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  ready(() => {
+    const seoForm = document.getElementById('local-seo-form');
+    const seoResult = document.getElementById('local-seo-result');
+    if (seoForm && seoResult) {
+      seoForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const items = [...seoForm.querySelectorAll('input[name="seo-item"]')];
+        const done = items.filter((item) => item.checked);
+        const missing = items.filter((item) => !item.checked).map((item) => item.value);
+        const score = Math.round((done.length / items.length) * 100);
+        const label = score >= 85 ? 'Strong local foundation' : score >= 55 ? 'Good start—improvements available' : 'Local visibility needs work';
+        seoResult.textContent = label + ': ' + score + '%\n' + (missing.length ? 'Focus next on:\n• ' + missing.slice(0, 3).join('\n• ') : 'Your core local SEO checklist is complete. Keep your profile, photos and reviews fresh.');
+        seoResult.hidden = false;
+      });
+      document.getElementById('local-seo-reset')?.addEventListener('click', () => {
+        seoForm.reset();
+        seoResult.hidden = true;
+        seoResult.textContent = '';
+      });
+    }
+
+    const plannerForm = document.getElementById('content-planner-form');
+    const plannerResult = document.getElementById('content-result');
+    const downloadButton = document.getElementById('content-download');
+    let planText = '';
+    if (plannerForm && plannerResult) {
+      plannerForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const business = document.getElementById('content-business')?.value || 'business';
+        const goal = document.getElementById('content-goal')?.value || 'Get more enquiries';
+        const platform = document.getElementById('content-platform')?.value || 'Instagram';
+        const ideas = [
+          ['Day 1 · Introduce', 'Explain who you help, the problem you solve, and why it matters locally.'],
+          ['Day 2 · Educate', 'Share one common mistake customers make and one practical tip to avoid it.'],
+          ['Day 3 · Show proof', 'Post a completed-work example, process photo, result, or verified customer review.'],
+          ['Day 4 · Behind the scenes', 'Show how your team prepares, checks quality, or delivers the service.'],
+          ['Day 5 · Answer a question', 'Answer the most frequent customer question in a short post or video.'],
+          ['Day 6 · Offer next step', 'Invite people to request a consultation, quote, demo, visit, or course discussion.'],
+          ['Day 7 · Community post', 'Share a local insight, useful checklist, or question that encourages replies.']
+        ];
+        plannerResult.replaceChildren();
+        ideas.forEach(([day, idea]) => {
+          const card = document.createElement('div');
+          card.className = 'content-day';
+          const heading = document.createElement('b');
+          heading.textContent = day;
+          const text = document.createElement('span');
+          text.textContent = idea;
+          card.append(heading, text);
+          plannerResult.append(card);
+        });
+        planText = 'STARWALT 7-DAY CONTENT PLAN\nBusiness: ' + business + '\nGoal: ' + goal + '\nPlatform: ' + platform + '\n\n' + ideas.map(([day, idea]) => day + '\n' + idea).join('\n\n');
+        plannerResult.hidden = false;
+        if (downloadButton) downloadButton.disabled = false;
+      });
+      downloadButton?.addEventListener('click', () => {
+        if (!planText) return;
+        const blob = new Blob([planText], {type: 'text/plain'});
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'starwalt-7-day-content-plan.txt';
+        link.click();
+        URL.revokeObjectURL(url);
+      });
+    }
+  });
+})();
