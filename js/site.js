@@ -402,3 +402,105 @@ const b=document.querySelector('.menu'),n=document.querySelector('nav');if(b&&n)
     }
   });
 })();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  const saveText = (filename, content) => {
+    const blob = new Blob([content], {type: 'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+  const dateLabel = (value) => {
+    if (!value) return 'To be confirmed';
+    const [year, month, day] = value.split('-').map(Number);
+    return new Intl.DateTimeFormat('en-IN', {day: 'numeric', month: 'short', year: 'numeric'}).format(new Date(year, month - 1, day));
+  };
+  ready(() => {
+    const onboardingForm = document.getElementById('onboarding-checklist-form');
+    const onboardingResult = document.getElementById('onboarding-result');
+    const onboardingDownload = document.getElementById('onboarding-download');
+    let onboardingText = '';
+    if (onboardingForm && onboardingResult) {
+      const common = [
+        'Confirm the primary contact and decision-maker',
+        'Agree on goals, scope, deliverables, timeline and approval process',
+        'Collect brand name, logo, colours, fonts and approved business information',
+        'Confirm communication channel, meeting frequency and response expectations',
+        'Document ownership, access, support and handover responsibilities'
+      ];
+      const serviceTasks = {
+        website: ['Collect page list, content, photos and reference websites', 'Confirm domain, hosting, forms, WhatsApp, Maps and analytics needs', 'Agree on mobile, accessibility, SEO and launch checks'],
+        marketing: ['Define audience, offer, campaign goal and success measures', 'Collect approved creative assets and platform access', 'Confirm budget, review process and reporting schedule'],
+        seo: ['Confirm target services, locations and priority search terms', 'Review website, Google Business Profile and contact consistency', 'Collect existing reports, review links and competitor references'],
+        automation: ['Map the current process, inputs, outputs and exceptions', 'Confirm approved systems, data access and human review points', 'Define privacy, security, monitoring and fallback requirements'],
+        training: ['Confirm learner level, outcomes, schedule and batch size', 'Share prerequisites, software setup and learning materials', 'Agree on attendance, assessments, support and completion criteria']
+      };
+      onboardingForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const service = document.getElementById('onboarding-service')?.value || 'website';
+        const serviceName = document.getElementById('onboarding-service')?.selectedOptions?.[0]?.textContent || 'Service';
+        const start = dateLabel(document.getElementById('onboarding-date')?.value);
+        const contact = document.getElementById('onboarding-contact')?.value.trim() || 'To be confirmed';
+        const tasks = [...common, ...(serviceTasks[service] || [])];
+        onboardingResult.replaceChildren();
+        tasks.forEach((task, index) => {
+          const card = document.createElement('div');
+          card.className = 'content-day';
+          const heading = document.createElement('b');
+          heading.textContent = 'Step ' + (index + 1);
+          const detail = document.createElement('span');
+          detail.textContent = task;
+          card.append(heading, detail);
+          onboardingResult.append(card);
+        });
+        onboardingText = 'STARWALT CLIENT ONBOARDING CHECKLIST\nService: ' + serviceName + '\nStart date: ' + start + '\nPrimary contact: ' + contact + '\n\n' + tasks.map((task, index) => '☐ ' + (index + 1) + '. ' + task).join('\n');
+        onboardingResult.hidden = false;
+        if (onboardingDownload) onboardingDownload.disabled = false;
+      });
+      onboardingDownload?.addEventListener('click', () => {
+        if (onboardingText) saveText('starwalt-client-onboarding-checklist.txt', onboardingText);
+      });
+    }
+
+    const issueForm = document.getElementById('issue-report-form');
+    const issueResult = document.getElementById('issue-result');
+    const issueCopy = document.getElementById('issue-copy');
+    const issueDownload = document.getElementById('issue-download');
+    let issueText = '';
+    if (issueForm && issueResult) {
+      issueForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const page = document.getElementById('issue-url')?.value.trim();
+        const type = document.getElementById('issue-type')?.value;
+        const device = document.getElementById('issue-device')?.value.trim();
+        const description = document.getElementById('issue-description')?.value.trim();
+        const steps = document.getElementById('issue-steps')?.value.trim() || 'Not provided';
+        const impact = document.getElementById('issue-impact')?.value;
+        if (!page || !device || !description) return;
+        issueText = 'WEBSITE ISSUE REPORT\n\nPage: ' + page + '\nIssue type: ' + type + '\nDevice / browser: ' + device + '\nBusiness impact: ' + impact + '\n\nWhat happened:\n' + description + '\n\nSteps to reproduce:\n' + steps + '\n\nSecurity note: No passwords, OTPs, payment details or secret keys are included.';
+        issueResult.textContent = issueText;
+        issueResult.hidden = false;
+        if (issueCopy) issueCopy.disabled = false;
+        if (issueDownload) issueDownload.disabled = false;
+      });
+      issueCopy?.addEventListener('click', async () => {
+        if (!issueText) return;
+        try {
+          await navigator.clipboard.writeText(issueText);
+          const old = issueCopy.textContent;
+          issueCopy.textContent = 'Copied';
+          setTimeout(() => { issueCopy.textContent = old; }, 1600);
+        } catch {
+          issueResult.scrollIntoView({behavior: 'smooth', block: 'center'});
+        }
+      });
+      issueDownload?.addEventListener('click', () => {
+        if (issueText) saveText('starwalt-website-issue-report.txt', issueText);
+      });
+    }
+  });
+})();
