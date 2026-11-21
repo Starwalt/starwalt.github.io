@@ -821,3 +821,132 @@ const b=document.querySelector('.menu'),n=document.querySelector('nav');if(b&&n)
     setTimeout(refreshFavouriteActions, 0);
   });
 })();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  ready(() => {
+    const remember = document.getElementById('remember-tool-entries');
+    const clearData = document.getElementById('clear-tool-data');
+    const storageStatus = document.getElementById('tool-storage-status');
+    const panels = [...document.querySelectorAll('.business-tools-grid .tool-panel[data-tool-key]')];
+    const forms = panels.map((panel) => panel.querySelector('form')).filter(Boolean);
+    if (!panels.length) return;
+
+    const draftKey = (form) => 'starwalt-tool-draft-' + form.id;
+    const fieldsOf = (form) => [...form.querySelectorAll('input, select, textarea')]
+      .filter((field) => !['button', 'submit', 'reset', 'file'].includes(field.type));
+
+    const setStatus = (message) => {
+      if (storageStatus) storageStatus.textContent = message;
+    };
+
+    const isRemembering = () => {
+      try {
+        return localStorage.getItem('starwalt-remember-tool-entries') === 'true';
+      } catch {
+        return false;
+      }
+    };
+
+    const saveForm = (form) => {
+      if (!isRemembering()) return;
+      const values = {};
+      fieldsOf(form).forEach((field, index) => {
+        const key = field.name || field.id || 'field-' + index;
+        if (field.type === 'checkbox' || field.type === 'radio') values[key] = field.checked;
+        else values[key] = field.value;
+      });
+      try {
+        localStorage.setItem(draftKey(form), JSON.stringify(values));
+        setStatus('Entries are saved only on this device. You can clear them at any time.');
+      } catch {
+        setStatus('This browser could not save entries. Your forms still work normally.');
+      }
+    };
+
+    const restoreForm = (form) => {
+      let values;
+      try {
+        values = JSON.parse(localStorage.getItem(draftKey(form)) || 'null');
+      } catch {
+        values = null;
+      }
+      if (!values) return;
+      fieldsOf(form).forEach((field, index) => {
+        const key = field.name || field.id || 'field-' + index;
+        if (!(key in values)) return;
+        if (field.type === 'checkbox' || field.type === 'radio') field.checked = Boolean(values[key]);
+        else field.value = values[key];
+      });
+    };
+
+    const removeDrafts = () => {
+      forms.forEach((form) => {
+        try { localStorage.removeItem(draftKey(form)); } catch {}
+      });
+    };
+
+    if (remember) {
+      remember.checked = isRemembering();
+      if (remember.checked) {
+        forms.forEach(restoreForm);
+        setStatus('Entries are saved only on this device. You can clear them at any time.');
+      }
+      remember.addEventListener('change', () => {
+        try {
+          localStorage.setItem('starwalt-remember-tool-entries', String(remember.checked));
+        } catch {
+          remember.checked = false;
+          setStatus('This browser does not allow local entry saving.');
+          return;
+        }
+        if (remember.checked) {
+          forms.forEach(saveForm);
+          setStatus('Entry saving is on for this device.');
+        } else {
+          removeDrafts();
+          setStatus('Entry saving is off. Previously saved entries were removed.');
+        }
+      });
+    }
+
+    forms.forEach((form) => {
+      form.addEventListener('input', () => saveForm(form));
+      form.addEventListener('change', () => saveForm(form));
+      form.addEventListener('reset', () => setTimeout(() => saveForm(form), 0));
+    });
+
+    clearData?.addEventListener('click', () => {
+      const approved = window.confirm('Clear saved entries, favourites and recently opened tools from this device?');
+      if (!approved) return;
+      try {
+        Object.keys(localStorage)
+          .filter((key) => key.startsWith('starwalt-'))
+          .forEach((key) => localStorage.removeItem(key));
+      } catch {}
+      forms.forEach((form) => form.reset());
+      location.reload();
+    });
+
+    panels.forEach((panel) => {
+      const controls = panel.querySelector('.tool-card-controls');
+      if (!controls || controls.querySelector('.tool-print')) return;
+      const printButton = document.createElement('button');
+      printButton.type = 'button';
+      printButton.className = 'tool-print';
+      printButton.textContent = 'Print tool';
+      printButton.addEventListener('click', () => {
+        if (!panel.classList.contains('is-open')) panel.querySelector('.tool-open')?.click();
+        document.body.classList.add('printing-tool');
+        panel.classList.add('print-target');
+        const cleanup = () => {
+          document.body.classList.remove('printing-tool');
+          panel.classList.remove('print-target');
+        };
+        window.addEventListener('afterprint', cleanup, {once: true});
+        window.print();
+      });
+      controls.append(printButton);
+    });
+  });
+})();
