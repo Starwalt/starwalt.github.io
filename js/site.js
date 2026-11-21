@@ -3,3 +3,1250 @@ const b=document.querySelector('.menu'),n=document.querySelector('nav');if(b&&n)
 (()=>{const download=(name,text)=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:'text/plain'}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);};let batchText='',serviceText='';const bf=document.getElementById('batch-planner');if(bf){const out=document.getElementById('batch-output'),wa=document.getElementById('batch-whatsapp'),dl=document.getElementById('batch-download');bf.addEventListener('submit',e=>{e.preventDefault();const course=document.getElementById('batch-course').value,mode=document.getElementById('batch-mode').value,time=document.getElementById('batch-time').value;batchText='STARWALT COMPANY - Training Request\nCourse: '+course+'\nMode: '+mode+'\nSchedule: '+time;out.textContent='Your request: '+course+' · '+mode+' · '+time+'. Contact us to confirm syllabus, fee and batch date.';wa.href='https://wa.me/918668098213?text='+encodeURIComponent('Hello STARWALT COMPANY,\n'+batchText+'\nPlease share fee and batch details.');dl.disabled=false;});dl.addEventListener('click',()=>download('starwalt-training-request.txt',batchText));}const sf=document.getElementById('service-matcher');if(sf){const out=document.getElementById('service-output'),wa=document.getElementById('service-whatsapp'),dl=document.getElementById('service-download');const names={launch:'Business Website Starter',leads:'Growth Website + Local SEO',sell:'E-commerce Solution',automate:'Business Automation Solution'};sf.addEventListener('submit',e=>{e.preventDefault();const goal=document.getElementById('service-goal'),budget=document.getElementById('service-budget'),timeline=document.getElementById('service-timeline');let rec=names[goal.value];if(budget.value==='starter'&&goal.value==='sell')rec='Product Catalogue + WhatsApp Orders';serviceText='STARWALT COMPANY - Digital Service Request\nGoal: '+goal.options[goal.selectedIndex].text+'\nBudget: '+budget.options[budget.selectedIndex].text+'\nTimeline: '+timeline.value+'\nSuggested starting package: '+rec;out.textContent='Recommended starting point: '+rec+'. Final scope and price will be confirmed after requirements review.';wa.href='https://wa.me/918668098213?text='+encodeURIComponent('Hello STARWALT COMPANY,\n'+serviceText+'\nPlease contact me to discuss.');dl.disabled=false;});dl.addEventListener('click',()=>download('starwalt-digital-service-request.txt',serviceText));}})();
 (()=>{const save=(name,text,type='text/plain')=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);};const hf=document.getElementById('health-checker');let healthReport='';if(hf){const out=document.getElementById('health-output'),wa=document.getElementById('health-whatsapp'),dl=document.getElementById('health-download');const labels={mobile:'Improve mobile usability',speed:'Optimize page speed and images',https:'Enable HTTPS security',cta:'Add clear call and WhatsApp actions',local:'Add Vellore location and service details',analytics:'Configure enquiry analytics'};hf.addEventListener('submit',e=>{e.preventDefault();const checked=[...hf.querySelectorAll('input[type=checkbox]:checked')].map(x=>x.value),missing=Object.keys(labels).filter(x=>!checked.includes(x)),score=Math.round(checked.length/6*100),status=score>=84?'Strong foundation':score>=50?'Good start—improvements recommended':'Priority improvements needed';healthReport='STARWALT COMPANY - Website Health Report\nScore: '+score+'/100\nStatus: '+status+'\n\nRecommended actions:\n'+(missing.length?missing.map(x=>'- '+labels[x]).join('\n'):'- Continue monitoring performance, content and conversions.');out.textContent='Score: '+score+'/100 · '+status+'. '+(missing.length?missing.length+' improvement area(s) identified.':'All core checks are covered.');wa.href='https://wa.me/918668098213?text='+encodeURIComponent('Hello STARWALT COMPANY, my website health score is '+score+'/100. Please help with: '+(missing.map(x=>labels[x]).join(', ')||'ongoing improvement'));dl.disabled=false;});dl.addEventListener('click',()=>save('starwalt-website-health-report.txt',healthReport));}const cf=document.getElementById('consultation-form');let eventText='';if(cf){const out=document.getElementById('consult-output'),wa=document.getElementById('consult-whatsapp'),cal=document.getElementById('consult-calendar');cf.addEventListener('submit',e=>{e.preventDefault();const name=document.getElementById('consult-name').value.trim(),phone=document.getElementById('consult-phone').value.trim(),topic=document.getElementById('consult-topic').value,raw=document.getElementById('consult-date').value,mode=document.getElementById('consult-mode').value,start=new Date(raw),end=new Date(start.getTime()+30*60000),fmt=d=>d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');eventText='BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//STARWALT COMPANY//Consultation//EN\r\nBEGIN:VEVENT\r\nUID:'+Date.now()+'@starwalt.github.io\r\nDTSTAMP:'+fmt(new Date())+'\r\nDTSTART:'+fmt(start)+'\r\nDTEND:'+fmt(end)+'\r\nSUMMARY:STARWALT Consultation - '+topic+'\r\nDESCRIPTION:Requested by '+name+' ('+phone+'). Mode: '+mode+'\r\nEND:VEVENT\r\nEND:VCALENDAR';const when=start.toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'});out.textContent='Consultation request: '+topic+' · '+when+' · '+mode+'. Please send it on WhatsApp for confirmation.';wa.href='https://wa.me/918668098213?text='+encodeURIComponent('Hello STARWALT COMPANY, I am '+name+'. I request a consultation for '+topic+' on '+when+' via '+mode+'. My phone: '+phone+'. Please confirm availability.');cal.disabled=false;});cal.addEventListener('click',()=>save('starwalt-consultation.ics',eventText,'text/calendar'));}})();
 (()=>{const save=(name,text)=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:'text/plain'}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);};const rf=document.getElementById('roadmap-builder');let roadmapText='';if(rf){const tracks={web:{hours:70,modules:['Internet, HTML & semantic structure','CSS, responsive layouts & accessibility','JavaScript fundamentals & DOM','Forms, APIs & browser storage','Portfolio projects & deployment']},java:{hours:110,modules:['Java language & object-oriented programming','Collections, exceptions, streams & testing','SQL, JDBC & data modelling','Spring Boot REST APIs & validation','Security, microservices basics & deployment']},mobile:{hours:90,modules:['Mobile UX and programming foundations','Application screens, navigation & state','APIs, storage and device features','Testing, performance & security','Capstone app and publishing readiness']},marketing:{hours:60,modules:['Audience, positioning & campaign goals','Content, social media & creative planning','SEO and Google Business Profile','Paid campaign foundations & tracking','Analytics, reporting & optimization']},ai:{hours:55,modules:['Responsible AI and prompt foundations','Research, content and productivity workflows','Data handling and quality checks','No-code automation and integrations','Practical business automation project']}};const out=document.getElementById('roadmap-output'),list=document.getElementById('roadmap-modules'),wa=document.getElementById('roadmap-whatsapp'),dl=document.getElementById('roadmap-download');rf.addEventListener('submit',e=>{e.preventDefault();const key=document.getElementById('roadmap-track').value,level=document.getElementById('roadmap-level').value,hours=Math.max(2,Number(document.getElementById('roadmap-hours').value)||2),data=tracks[key],factor=level==='working'?.7:level==='basic'?.85:1,total=Math.round(data.hours*factor),weeks=Math.ceil(total/hours),title=document.getElementById('roadmap-track').selectedOptions[0].text;out.textContent='Estimated learning plan: '+total+' guided/self-study hours across approximately '+weeks+' weeks at '+hours+' hours per week.';list.innerHTML=data.modules.map((m,i)=>'<span>'+(i+1)+'. '+m+'</span>').join('');roadmapText='STARWALT COMPANY - Learning Roadmap\nTrack: '+title+'\nLevel: '+level+'\nWeekly study time: '+hours+' hours\nEstimated duration: '+weeks+' weeks\n\nModules:\n'+data.modules.map((m,i)=>(i+1)+'. '+m).join('\n')+'\n\nThis is an indicative learning plan; final duration depends on practice and project completion.';wa.href='https://wa.me/918668098213?text='+encodeURIComponent('Hello STARWALT COMPANY, I created a '+title+' roadmap for about '+weeks+' weeks. Please share training options.');dl.disabled=false;});dl.addEventListener('click',()=>save('starwalt-learning-roadmap.txt',roadmapText));}const cf=document.getElementById('campaign-builder');let campaignText='';if(cf){const out=document.getElementById('campaign-output'),split=document.getElementById('campaign-split'),wa=document.getElementById('campaign-whatsapp'),dl=document.getElementById('campaign-download');cf.addEventListener('submit',e=>{e.preventDefault();const goal=document.getElementById('campaign-goal').value,channel=document.getElementById('campaign-channel').value,budget=Math.max(3000,Number(document.getElementById('campaign-budget').value)||3000),duration=document.getElementById('campaign-duration').value,media=Math.round(budget*.7),creative=Math.round(budget*.15),testing=budget-media-creative,fmt=n=>'₹'+n.toLocaleString('en-IN');out.textContent='Suggested monthly planning split for '+channel+': 70% media/distribution, 15% creative/content and 15% testing/measurement.';split.innerHTML='<span><b>'+fmt(media)+'</b>Media</span><span><b>'+fmt(creative)+'</b>Creative</span><span><b>'+fmt(testing)+'</b>Testing</span>';campaignText='STARWALT COMPANY - Digital Campaign Brief\nGoal: '+goal+'\nPrimary channel: '+channel+'\nDuration: '+duration+'\nMonthly budget: '+fmt(budget)+'\n\nPlanning split:\n- Media/distribution: '+fmt(media)+'\n- Creative/content: '+fmt(creative)+'\n- Testing/measurement: '+fmt(testing)+'\n\nSuccess metrics to confirm: reach, qualified clicks, enquiries, cost per enquiry and sales follow-up.\nThis is planning guidance, not a results guarantee.';wa.href='https://wa.me/918668098213?text='+encodeURIComponent('Hello STARWALT COMPANY, I need a '+channel+' campaign for '+goal+' with a monthly budget of '+fmt(budget)+' ('+duration+'). Please review my plan.');dl.disabled=false;});dl.addEventListener('click',()=>save('starwalt-campaign-brief.txt',campaignText));}})();
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  ready(() => {
+    const launchForm = document.getElementById('launch-checker-form');
+    const launchResult = document.getElementById('launch-result');
+    const launchReset = document.getElementById('launch-reset');
+    if (launchForm && launchResult) {
+      launchForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const items = [...launchForm.querySelectorAll('input[name="launch-item"]')];
+        const completed = items.filter((item) => item.checked);
+        const missing = items.filter((item) => !item.checked).map((item) => item.value);
+        const score = Math.round((completed.length / items.length) * 100);
+        let status = score >= 85 ? 'Launch ready' : score >= 60 ? 'Almost ready' : 'Needs attention';
+        let next = missing.length ? 'Next priorities:\n• ' + missing.slice(0, 3).join('\n• ') : 'Excellent—your core launch checklist is complete.';
+        launchResult.innerHTML = '<strong>' + status + ': ' + score + '%</strong><div class="readiness-meter" aria-label="' + score + '% ready"><span style="width:' + score + '%"></span></div>' + next.replace(/\n/g, '<br>');
+        launchResult.hidden = false;
+      });
+      launchReset?.addEventListener('click', () => {
+        launchForm.reset();
+        launchResult.hidden = true;
+        launchResult.textContent = '';
+      });
+    }
+
+    const followupForm = document.getElementById('followup-builder-form');
+    const followupResult = document.getElementById('followup-result');
+    const copyButton = document.getElementById('followup-copy');
+    const whatsapp = document.getElementById('followup-whatsapp');
+    let followupMessage = '';
+    if (followupForm && followupResult) {
+      followupForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const name = document.getElementById('followup-name')?.value.trim() || 'there';
+        const service = document.getElementById('followup-service')?.value || 'our services';
+        const nextStep = document.getElementById('followup-next')?.value || 'a discussion';
+        const time = document.getElementById('followup-time')?.value.trim();
+        followupMessage = 'Hello ' + name + ', thank you for your interest in Starwalt Company’s ' + service + '. We would be happy to understand your requirement and help you choose the right next step. Can we arrange ' + nextStep + (time ? ' at ' + time : ' at a convenient time') + '? Please share any questions or goals you would like us to prepare for.';
+        followupResult.textContent = followupMessage;
+        followupResult.hidden = false;
+        if (copyButton) copyButton.disabled = false;
+        if (whatsapp) {
+          whatsapp.href = 'https://wa.me/?text=' + encodeURIComponent(followupMessage);
+          whatsapp.hidden = false;
+        }
+      });
+      copyButton?.addEventListener('click', async () => {
+        if (!followupMessage) return;
+        try {
+          await navigator.clipboard.writeText(followupMessage);
+          const original = copyButton.textContent;
+          copyButton.textContent = 'Copied';
+          setTimeout(() => { copyButton.textContent = original; }, 1600);
+        } catch {
+          followupResult.focus?.();
+        }
+      });
+    }
+  });
+})();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  ready(() => {
+    const seoForm = document.getElementById('local-seo-form');
+    const seoResult = document.getElementById('local-seo-result');
+    if (seoForm && seoResult) {
+      seoForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const items = [...seoForm.querySelectorAll('input[name="seo-item"]')];
+        const done = items.filter((item) => item.checked);
+        const missing = items.filter((item) => !item.checked).map((item) => item.value);
+        const score = Math.round((done.length / items.length) * 100);
+        const label = score >= 85 ? 'Strong local foundation' : score >= 55 ? 'Good start—improvements available' : 'Local visibility needs work';
+        seoResult.textContent = label + ': ' + score + '%\n' + (missing.length ? 'Focus next on:\n• ' + missing.slice(0, 3).join('\n• ') : 'Your core local SEO checklist is complete. Keep your profile, photos and reviews fresh.');
+        seoResult.hidden = false;
+      });
+      document.getElementById('local-seo-reset')?.addEventListener('click', () => {
+        seoForm.reset();
+        seoResult.hidden = true;
+        seoResult.textContent = '';
+      });
+    }
+
+    const plannerForm = document.getElementById('content-planner-form');
+    const plannerResult = document.getElementById('content-result');
+    const downloadButton = document.getElementById('content-download');
+    let planText = '';
+    if (plannerForm && plannerResult) {
+      plannerForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const business = document.getElementById('content-business')?.value || 'business';
+        const goal = document.getElementById('content-goal')?.value || 'Get more enquiries';
+        const platform = document.getElementById('content-platform')?.value || 'Instagram';
+        const ideas = [
+          ['Day 1 · Introduce', 'Explain who you help, the problem you solve, and why it matters locally.'],
+          ['Day 2 · Educate', 'Share one common mistake customers make and one practical tip to avoid it.'],
+          ['Day 3 · Show proof', 'Post a completed-work example, process photo, result, or verified customer review.'],
+          ['Day 4 · Behind the scenes', 'Show how your team prepares, checks quality, or delivers the service.'],
+          ['Day 5 · Answer a question', 'Answer the most frequent customer question in a short post or video.'],
+          ['Day 6 · Offer next step', 'Invite people to request a consultation, quote, demo, visit, or course discussion.'],
+          ['Day 7 · Community post', 'Share a local insight, useful checklist, or question that encourages replies.']
+        ];
+        plannerResult.replaceChildren();
+        ideas.forEach(([day, idea]) => {
+          const card = document.createElement('div');
+          card.className = 'content-day';
+          const heading = document.createElement('b');
+          heading.textContent = day;
+          const text = document.createElement('span');
+          text.textContent = idea;
+          card.append(heading, text);
+          plannerResult.append(card);
+        });
+        planText = 'STARWALT 7-DAY CONTENT PLAN\nBusiness: ' + business + '\nGoal: ' + goal + '\nPlatform: ' + platform + '\n\n' + ideas.map(([day, idea]) => day + '\n' + idea).join('\n\n');
+        plannerResult.hidden = false;
+        if (downloadButton) downloadButton.disabled = false;
+      });
+      downloadButton?.addEventListener('click', () => {
+        if (!planText) return;
+        const blob = new Blob([planText], {type: 'text/plain'});
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'starwalt-7-day-content-plan.txt';
+        link.click();
+        URL.revokeObjectURL(url);
+      });
+    }
+  });
+})();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  const money = (value) => new Intl.NumberFormat('en-IN', {style: 'currency', currency: 'INR', maximumFractionDigits: 0}).format(value);
+  ready(() => {
+    const breakForm = document.getElementById('breakeven-form');
+    const breakResult = document.getElementById('breakeven-result');
+    if (breakForm && breakResult) {
+      breakForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const budget = Number(document.getElementById('breakeven-budget')?.value);
+        const revenue = Number(document.getElementById('breakeven-revenue')?.value);
+        const margin = Number(document.getElementById('breakeven-margin')?.value);
+        const conversion = Number(document.getElementById('breakeven-conversion')?.value);
+        if (![budget, revenue, margin, conversion].every((value) => Number.isFinite(value) && value > 0) || margin > 100 || conversion > 100) {
+          breakResult.textContent = 'Enter valid positive numbers. Margin and conversion rate must be between 1% and 100%.';
+          breakResult.hidden = false;
+          return;
+        }
+        const profitPerCustomer = revenue * (margin / 100);
+        const customers = Math.ceil(budget / profitPerCustomer);
+        const leads = Math.ceil(customers / (conversion / 100));
+        const salesRevenue = customers * revenue;
+        breakResult.replaceChildren();
+        const intro = document.createElement('strong');
+        intro.textContent = 'Estimated break-even target';
+        const grid = document.createElement('div');
+        grid.className = 'metric-grid';
+        [
+          [customers, 'paying customers'],
+          [leads, 'qualified leads'],
+          [money(profitPerCustomer), 'profit per customer'],
+          [money(salesRevenue), 'sales revenue at target']
+        ].forEach(([value, label]) => {
+          const card = document.createElement('div');
+          card.className = 'metric-card';
+          const number = document.createElement('b');
+          number.textContent = String(value);
+          const caption = document.createElement('span');
+          caption.textContent = label;
+          card.append(number, caption);
+          grid.append(card);
+        });
+        breakResult.append(intro, grid);
+        breakResult.hidden = false;
+      });
+      document.getElementById('breakeven-reset')?.addEventListener('click', () => {
+        breakForm.reset();
+        breakResult.hidden = true;
+        breakResult.textContent = '';
+      });
+    }
+
+    const reviewForm = document.getElementById('review-request-form');
+    const reviewResult = document.getElementById('review-result');
+    const reviewCopy = document.getElementById('review-copy');
+    const reviewWhatsApp = document.getElementById('review-whatsapp');
+    let reviewMessage = '';
+    if (reviewForm && reviewResult) {
+      reviewForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const name = document.getElementById('review-name')?.value.trim();
+        const business = document.getElementById('review-business')?.value.trim() || 'our business';
+        const link = document.getElementById('review-link')?.value.trim();
+        const tone = document.getElementById('review-tone')?.value || 'warm';
+        const greeting = name ? 'Hello ' + name + ',' : 'Hello,';
+        if (tone === 'professional') {
+          reviewMessage = greeting + ' thank you for choosing ' + business + '. We value your feedback. If you have a moment, please share an honest review about your experience' + (link ? ': ' + link : '.') + ' Your feedback helps us improve and helps other customers make an informed decision.';
+        } else if (tone === 'short') {
+          reviewMessage = greeting + ' thank you for choosing ' + business + '. Could you share an honest review of your experience' + (link ? '? ' + link : '?') + ' Thank you for your time.';
+        } else {
+          reviewMessage = greeting + ' thank you for supporting ' + business + '! We hope you had a good experience. When you have a moment, we would really appreciate an honest review' + (link ? ': ' + link : '.') + ' Your feedback means a lot to our team.';
+        }
+        reviewResult.textContent = reviewMessage;
+        reviewResult.hidden = false;
+        if (reviewCopy) reviewCopy.disabled = false;
+        if (reviewWhatsApp) {
+          reviewWhatsApp.href = 'https://wa.me/?text=' + encodeURIComponent(reviewMessage);
+          reviewWhatsApp.hidden = false;
+        }
+      });
+      reviewCopy?.addEventListener('click', async () => {
+        if (!reviewMessage) return;
+        try {
+          await navigator.clipboard.writeText(reviewMessage);
+          const old = reviewCopy.textContent;
+          reviewCopy.textContent = 'Copied';
+          setTimeout(() => { reviewCopy.textContent = old; }, 1600);
+        } catch {
+          reviewResult.scrollIntoView({behavior: 'smooth', block: 'center'});
+        }
+      });
+    }
+  });
+})();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  const formatDate = (value) => {
+    if (!value) return 'To be confirmed';
+    const [year, month, day] = value.split('-').map(Number);
+    return new Intl.DateTimeFormat('en-IN', {day: 'numeric', month: 'short', year: 'numeric'}).format(new Date(year, month - 1, day));
+  };
+  const downloadText = (name, text) => {
+    const blob = new Blob([text], {type: 'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = name;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+  ready(() => {
+    const briefForm = document.getElementById('requirements-brief-form');
+    const briefResult = document.getElementById('brief-result');
+    const briefDownload = document.getElementById('brief-download');
+    let briefText = '';
+    if (briefForm && briefResult) {
+      briefForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const business = document.getElementById('brief-business')?.value.trim();
+        const type = document.getElementById('brief-type')?.value.trim();
+        const goal = document.getElementById('brief-goal')?.value;
+        const pages = [...briefForm.querySelectorAll('input[name="brief-page"]:checked')].map((item) => item.value);
+        const date = formatDate(document.getElementById('brief-date')?.value);
+        const extra = document.getElementById('brief-extra')?.value.trim();
+        if (!business || !type) return;
+        briefText = 'WEBSITE PROJECT BRIEF\n\nBusiness / project: ' + business + '\nBusiness type: ' + type + '\nPrimary goal: ' + goal + '\nRequired pages: ' + (pages.length ? pages.join(', ') : 'To be discussed') + '\nTarget launch: ' + date + '\nExtra requirements: ' + (extra || 'To be discussed') + '\n\nNext step: confirm content, features, ownership, timeline, support and final quotation.';
+        briefResult.textContent = briefText;
+        briefResult.hidden = false;
+        if (briefDownload) briefDownload.disabled = false;
+      });
+      briefDownload?.addEventListener('click', () => {
+        if (briefText) downloadText('starwalt-website-project-brief.txt', briefText);
+      });
+    }
+
+    const paymentForm = document.getElementById('payment-reminder-form');
+    const paymentResult = document.getElementById('payment-result');
+    const paymentCopy = document.getElementById('payment-copy');
+    const paymentWhatsApp = document.getElementById('payment-whatsapp');
+    let paymentMessage = '';
+    if (paymentForm && paymentResult) {
+      paymentForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const name = document.getElementById('payment-name')?.value.trim();
+        const reference = document.getElementById('payment-reference')?.value.trim();
+        const amount = Number(document.getElementById('payment-amount')?.value);
+        const due = document.getElementById('payment-date')?.value;
+        const tone = document.getElementById('payment-tone')?.value;
+        if (!Number.isFinite(amount) || amount <= 0 || !due) return;
+        const formattedAmount = new Intl.NumberFormat('en-IN', {style: 'currency', currency: 'INR', maximumFractionDigits: 0}).format(amount);
+        const greeting = name ? 'Hello ' + name + ',' : 'Hello,';
+        const refText = reference ? ' for ' + reference : '';
+        if (tone === 'overdue') {
+          paymentMessage = greeting + ' this is a follow-up regarding the pending payment of ' + formattedAmount + refText + ', which was due on ' + formatDate(due) + '. Please let us know the expected payment date or contact us if you need any clarification. Thank you.';
+        } else if (tone === 'professional') {
+          paymentMessage = greeting + ' this is a reminder that the payment of ' + formattedAmount + refText + ' is due on ' + formatDate(due) + '. Kindly arrange payment by the due date and share confirmation once completed. Please contact us if you have any questions.';
+        } else {
+          paymentMessage = greeting + ' a friendly reminder that ' + formattedAmount + refText + ' is due on ' + formatDate(due) + '. Please share an update when convenient, and let us know if you need the invoice or any clarification. Thank you!';
+        }
+        paymentResult.textContent = paymentMessage;
+        paymentResult.hidden = false;
+        if (paymentCopy) paymentCopy.disabled = false;
+        if (paymentWhatsApp) {
+          paymentWhatsApp.href = 'https://wa.me/?text=' + encodeURIComponent(paymentMessage);
+          paymentWhatsApp.hidden = false;
+        }
+      });
+      paymentCopy?.addEventListener('click', async () => {
+        if (!paymentMessage) return;
+        try {
+          await navigator.clipboard.writeText(paymentMessage);
+          const old = paymentCopy.textContent;
+          paymentCopy.textContent = 'Copied';
+          setTimeout(() => { paymentCopy.textContent = old; }, 1600);
+        } catch {
+          paymentResult.scrollIntoView({behavior: 'smooth', block: 'center'});
+        }
+      });
+    }
+  });
+})();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  ready(() => {
+    const maintenanceForm = document.getElementById('maintenance-planner-form');
+    const maintenanceResult = document.getElementById('maintenance-result');
+    const maintenanceDownload = document.getElementById('maintenance-download');
+    let maintenanceText = '';
+    if (maintenanceForm && maintenanceResult) {
+      maintenanceForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const type = document.getElementById('maintenance-type')?.value;
+        const frequency = document.getElementById('maintenance-frequency')?.value;
+        const features = [...maintenanceForm.querySelectorAll('input[name="maintenance-feature"]:checked')].map((item) => item.value);
+        const tasks = [
+          ['Security and backups', 'Confirm the site loads securely, create a backup, and check for unexpected changes.'],
+          ['Forms and customer actions', 'Test contact links, forms, phone, WhatsApp, email, booking, and payment actions that apply.'],
+          ['Content accuracy', 'Review service details, prices, team information, opening hours, offers, and contact information.'],
+          ['Performance and mobile', 'Check important pages on mobile, compress new images, and review loading performance.'],
+          ['Search visibility', 'Review page titles, broken links, search performance, local profile details, and recent reviews.'],
+          ['Analytics and improvement', 'Compare traffic and enquiries, identify the strongest pages, and plan one improvement.']
+        ];
+        if (features.includes('Online payments')) tasks.splice(2, 0, ['Payment checks', 'Complete a small test transaction where appropriate and verify confirmation and refund information.']);
+        if (features.includes('Product catalogue')) tasks.splice(3, 0, ['Catalogue checks', 'Review stock, product information, pricing, images, and unavailable items.']);
+        if (features.includes('Booking system')) tasks.splice(2, 0, ['Booking checks', 'Test available slots, confirmation messages, cancellations, and notification delivery.']);
+        maintenanceResult.replaceChildren();
+        tasks.forEach(([title, detail]) => {
+          const card = document.createElement('div');
+          card.className = 'content-day';
+          const heading = document.createElement('b');
+          heading.textContent = title;
+          const copy = document.createElement('span');
+          copy.textContent = detail;
+          card.append(heading, copy);
+          maintenanceResult.append(card);
+        });
+        maintenanceText = 'STARWALT WEBSITE MAINTENANCE PLAN\nWebsite type: ' + type + '\nReview frequency: ' + frequency + '\nFeatures: ' + (features.join(', ') || 'Standard website') + '\n\n' + tasks.map(([title, detail]) => title + '\n' + detail).join('\n\n');
+        maintenanceResult.hidden = false;
+        if (maintenanceDownload) maintenanceDownload.disabled = false;
+      });
+      maintenanceDownload?.addEventListener('click', () => {
+        if (!maintenanceText) return;
+        const blob = new Blob([maintenanceText], {type: 'text/plain'});
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'starwalt-website-maintenance-plan.txt';
+        link.click();
+        URL.revokeObjectURL(url);
+      });
+    }
+
+    const priorityForm = document.getElementById('lead-priority-form');
+    const priorityResult = document.getElementById('lead-priority-result');
+    if (priorityForm && priorityResult) {
+      priorityForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const score = ['lead-timeline', 'lead-clarity', 'lead-budget', 'lead-decision']
+          .reduce((total, id) => total + Number(document.getElementById(id)?.value || 0), 0);
+        const high = score >= 9;
+        const medium = score >= 5 && score < 9;
+        const label = high ? 'High follow-up priority' : medium ? 'Medium follow-up priority' : 'Early-stage enquiry';
+        const className = high ? 'priority-high' : medium ? 'priority-medium' : 'priority-low';
+        const action = high
+          ? 'Recommended next action: arrange a requirements call soon, confirm scope and decision steps, then prepare a written proposal.'
+          : medium
+            ? 'Recommended next action: clarify the main requirement, target date, budget expectations and decision process before proposing.'
+            : 'Recommended next action: share a useful guide or service overview, ask one simple discovery question, and schedule a later follow-up.';
+        priorityResult.replaceChildren();
+        const badge = document.createElement('span');
+        badge.className = 'priority-badge ' + className;
+        badge.textContent = label;
+        const detail = document.createElement('div');
+        detail.textContent = action;
+        priorityResult.append(badge, detail);
+        priorityResult.hidden = false;
+      });
+      document.getElementById('lead-priority-reset')?.addEventListener('click', () => {
+        priorityForm.reset();
+        priorityResult.hidden = true;
+        priorityResult.textContent = '';
+      });
+    }
+  });
+})();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  const saveText = (filename, content) => {
+    const blob = new Blob([content], {type: 'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+  const dateLabel = (value) => {
+    if (!value) return 'To be confirmed';
+    const [year, month, day] = value.split('-').map(Number);
+    return new Intl.DateTimeFormat('en-IN', {day: 'numeric', month: 'short', year: 'numeric'}).format(new Date(year, month - 1, day));
+  };
+  ready(() => {
+    const onboardingForm = document.getElementById('onboarding-checklist-form');
+    const onboardingResult = document.getElementById('onboarding-result');
+    const onboardingDownload = document.getElementById('onboarding-download');
+    let onboardingText = '';
+    if (onboardingForm && onboardingResult) {
+      const common = [
+        'Confirm the primary contact and decision-maker',
+        'Agree on goals, scope, deliverables, timeline and approval process',
+        'Collect brand name, logo, colours, fonts and approved business information',
+        'Confirm communication channel, meeting frequency and response expectations',
+        'Document ownership, access, support and handover responsibilities'
+      ];
+      const serviceTasks = {
+        website: ['Collect page list, content, photos and reference websites', 'Confirm domain, hosting, forms, WhatsApp, Maps and analytics needs', 'Agree on mobile, accessibility, SEO and launch checks'],
+        marketing: ['Define audience, offer, campaign goal and success measures', 'Collect approved creative assets and platform access', 'Confirm budget, review process and reporting schedule'],
+        seo: ['Confirm target services, locations and priority search terms', 'Review website, Google Business Profile and contact consistency', 'Collect existing reports, review links and competitor references'],
+        automation: ['Map the current process, inputs, outputs and exceptions', 'Confirm approved systems, data access and human review points', 'Define privacy, security, monitoring and fallback requirements'],
+        training: ['Confirm learner level, outcomes, schedule and batch size', 'Share prerequisites, software setup and learning materials', 'Agree on attendance, assessments, support and completion criteria']
+      };
+      onboardingForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const service = document.getElementById('onboarding-service')?.value || 'website';
+        const serviceName = document.getElementById('onboarding-service')?.selectedOptions?.[0]?.textContent || 'Service';
+        const start = dateLabel(document.getElementById('onboarding-date')?.value);
+        const contact = document.getElementById('onboarding-contact')?.value.trim() || 'To be confirmed';
+        const tasks = [...common, ...(serviceTasks[service] || [])];
+        onboardingResult.replaceChildren();
+        tasks.forEach((task, index) => {
+          const card = document.createElement('div');
+          card.className = 'content-day';
+          const heading = document.createElement('b');
+          heading.textContent = 'Step ' + (index + 1);
+          const detail = document.createElement('span');
+          detail.textContent = task;
+          card.append(heading, detail);
+          onboardingResult.append(card);
+        });
+        onboardingText = 'STARWALT CLIENT ONBOARDING CHECKLIST\nService: ' + serviceName + '\nStart date: ' + start + '\nPrimary contact: ' + contact + '\n\n' + tasks.map((task, index) => '☐ ' + (index + 1) + '. ' + task).join('\n');
+        onboardingResult.hidden = false;
+        if (onboardingDownload) onboardingDownload.disabled = false;
+      });
+      onboardingDownload?.addEventListener('click', () => {
+        if (onboardingText) saveText('starwalt-client-onboarding-checklist.txt', onboardingText);
+      });
+    }
+
+    const issueForm = document.getElementById('issue-report-form');
+    const issueResult = document.getElementById('issue-result');
+    const issueCopy = document.getElementById('issue-copy');
+    const issueDownload = document.getElementById('issue-download');
+    let issueText = '';
+    if (issueForm && issueResult) {
+      issueForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const page = document.getElementById('issue-url')?.value.trim();
+        const type = document.getElementById('issue-type')?.value;
+        const device = document.getElementById('issue-device')?.value.trim();
+        const description = document.getElementById('issue-description')?.value.trim();
+        const steps = document.getElementById('issue-steps')?.value.trim() || 'Not provided';
+        const impact = document.getElementById('issue-impact')?.value;
+        if (!page || !device || !description) return;
+        issueText = 'WEBSITE ISSUE REPORT\n\nPage: ' + page + '\nIssue type: ' + type + '\nDevice / browser: ' + device + '\nBusiness impact: ' + impact + '\n\nWhat happened:\n' + description + '\n\nSteps to reproduce:\n' + steps + '\n\nSecurity note: No passwords, OTPs, payment details or secret keys are included.';
+        issueResult.textContent = issueText;
+        issueResult.hidden = false;
+        if (issueCopy) issueCopy.disabled = false;
+        if (issueDownload) issueDownload.disabled = false;
+      });
+      issueCopy?.addEventListener('click', async () => {
+        if (!issueText) return;
+        try {
+          await navigator.clipboard.writeText(issueText);
+          const old = issueCopy.textContent;
+          issueCopy.textContent = 'Copied';
+          setTimeout(() => { issueCopy.textContent = old; }, 1600);
+        } catch {
+          issueResult.scrollIntoView({behavior: 'smooth', block: 'center'});
+        }
+      });
+      issueDownload?.addEventListener('click', () => {
+        if (issueText) saveText('starwalt-website-issue-report.txt', issueText);
+      });
+    }
+  });
+})();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  ready(() => {
+    const search = document.getElementById('business-tool-search');
+    const filters = [...document.querySelectorAll('[data-tool-filter]')];
+    const panels = [...document.querySelectorAll('.business-tools-grid .tool-panel[data-tool-key]')];
+    const status = document.getElementById('tool-directory-status');
+    if (!search || !panels.length || !status) return;
+
+    let activeFilter = 'all';
+    let favourites = new Set();
+    try {
+      favourites = new Set(JSON.parse(localStorage.getItem('starwalt-tool-favourites') || '[]'));
+    } catch {
+      favourites = new Set();
+    }
+
+    const saveFavourites = () => {
+      try {
+        localStorage.setItem('starwalt-tool-favourites', JSON.stringify([...favourites]));
+      } catch {
+        // Favourites remain available for the current visit when storage is unavailable.
+      }
+    };
+
+    const updateFavouriteButton = (button, key) => {
+      const saved = favourites.has(key);
+      button.classList.toggle('is-favourite', saved);
+      button.textContent = saved ? '★' : '☆';
+      button.setAttribute('aria-pressed', String(saved));
+      button.setAttribute('aria-label', saved ? 'Remove from favourites' : 'Save to favourites');
+      button.title = saved ? 'Remove from favourites' : 'Save to favourites';
+    };
+
+    panels.forEach((panel) => {
+      const key = panel.dataset.toolKey;
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'tool-favourite';
+      updateFavouriteButton(button, key);
+      button.addEventListener('click', () => {
+        favourites.has(key) ? favourites.delete(key) : favourites.add(key);
+        saveFavourites();
+        updateFavouriteButton(button, key);
+        applyFilters();
+      });
+      panel.prepend(button);
+    });
+
+    function applyFilters() {
+      const query = search.value.trim().toLowerCase();
+      let visible = 0;
+      panels.forEach((panel) => {
+        const categoryMatch = activeFilter === 'all'
+          || (activeFilter === 'favourites' ? favourites.has(panel.dataset.toolKey) : panel.dataset.toolCategory === activeFilter);
+        const searchable = (panel.dataset.toolKeywords + ' ' + panel.textContent).toLowerCase();
+        const queryMatch = !query || searchable.includes(query);
+        const show = categoryMatch && queryMatch;
+        panel.hidden = !show;
+        if (show) visible += 1;
+      });
+      const filterLabel = activeFilter === 'all' ? 'tools' : activeFilter === 'favourites' ? 'favourite tools' : activeFilter + ' tools';
+      status.textContent = visible
+        ? 'Showing ' + visible + ' ' + filterLabel
+        : activeFilter === 'favourites' && favourites.size === 0
+          ? 'No favourites saved yet. Tap the star on any tool to save it.'
+          : 'No tools match this search. Try another keyword or category.';
+    }
+
+    search.addEventListener('input', applyFilters);
+    filters.forEach((button) => {
+      button.addEventListener('click', () => {
+        activeFilter = button.dataset.toolFilter;
+        filters.forEach((item) => item.classList.toggle('is-active', item === button));
+        applyFilters();
+      });
+    });
+    applyFilters();
+  });
+})();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  ready(() => {
+    const panels = [...document.querySelectorAll('.business-tools-grid .tool-panel[data-tool-key]')];
+    const recentBox = document.getElementById('recent-tools');
+    const recentList = document.getElementById('recent-tools-list');
+    const search = document.getElementById('business-tool-search');
+    const allFilter = document.querySelector('[data-tool-filter="all"]');
+    if (!panels.length) return;
+
+    let recent = [];
+    try {
+      recent = JSON.parse(localStorage.getItem('starwalt-recent-tools') || '[]');
+      if (!Array.isArray(recent)) recent = [];
+    } catch {
+      recent = [];
+    }
+
+    const panelByKey = (key) => panels.find((panel) => panel.dataset.toolKey === key);
+    const panelTitle = (panel) => panel.querySelector('h3')?.textContent.trim() || 'Business tool';
+
+    const saveRecent = (key) => {
+      recent = [key, ...recent.filter((item) => item !== key)].slice(0, 4);
+      try {
+        localStorage.setItem('starwalt-recent-tools', JSON.stringify(recent));
+      } catch {
+        // Recent shortcuts still work during the current visit.
+      }
+      renderRecent();
+    };
+
+    const closePanel = (panel) => {
+      const form = panel.querySelector('form');
+      const button = panel.querySelector('.tool-open');
+      if (form) form.hidden = true;
+      panel.classList.remove('is-open');
+      if (button) {
+        button.textContent = 'Open tool';
+        button.setAttribute('aria-expanded', 'false');
+      }
+    };
+
+    const openPanel = (panel, shouldScroll = true) => {
+      panels.forEach((item) => { if (item !== panel) closePanel(item); });
+      const form = panel.querySelector('form');
+      const button = panel.querySelector('.tool-open');
+      if (form) form.hidden = false;
+      panel.classList.add('is-open');
+      if (button) {
+        button.textContent = 'Close tool';
+        button.setAttribute('aria-expanded', 'true');
+      }
+      saveRecent(panel.dataset.toolKey);
+      const hash = '#' + panel.id;
+      if (history.replaceState) history.replaceState(null, '', hash);
+      if (shouldScroll) panel.scrollIntoView({behavior: 'smooth', block: 'start'});
+    };
+
+    const showTool = (key) => {
+      const panel = panelByKey(key);
+      if (!panel) return;
+      if (search) {
+        search.value = '';
+        search.dispatchEvent(new Event('input', {bubbles: true}));
+      }
+      allFilter?.click();
+      panel.hidden = false;
+      openPanel(panel);
+    };
+
+    function renderRecent() {
+      if (!recentBox || !recentList) return;
+      const available = recent.map(panelByKey).filter(Boolean);
+      recentList.replaceChildren();
+      available.forEach((panel) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'recent-tool-link';
+        button.textContent = panelTitle(panel);
+        button.addEventListener('click', () => showTool(panel.dataset.toolKey));
+        recentList.append(button);
+      });
+      recentBox.hidden = available.length === 0;
+    }
+
+    panels.forEach((panel) => {
+      const key = panel.dataset.toolKey;
+      panel.id = 'tool-' + key;
+      const form = panel.querySelector('form');
+      if (!form) return;
+      form.hidden = true;
+
+      const controls = document.createElement('div');
+      controls.className = 'tool-card-controls';
+      const openButton = document.createElement('button');
+      openButton.type = 'button';
+      openButton.className = 'tool-open';
+      openButton.textContent = 'Open tool';
+      openButton.setAttribute('aria-expanded', 'false');
+      openButton.setAttribute('aria-controls', form.id);
+
+      const copyButton = document.createElement('button');
+      copyButton.type = 'button';
+      copyButton.className = 'tool-copy-link';
+      copyButton.textContent = 'Copy tool link';
+
+      openButton.addEventListener('click', () => {
+        panel.classList.contains('is-open') ? closePanel(panel) : openPanel(panel, false);
+      });
+      copyButton.addEventListener('click', async () => {
+        const link = location.origin + location.pathname + '#tool-' + key;
+        try {
+          await navigator.clipboard.writeText(link);
+          copyButton.textContent = 'Link copied';
+          setTimeout(() => { copyButton.textContent = 'Copy tool link'; }, 1600);
+        } catch {
+          location.hash = 'tool-' + key;
+          copyButton.textContent = 'Link ready';
+          setTimeout(() => { copyButton.textContent = 'Copy tool link'; }, 1600);
+        }
+      });
+      controls.append(openButton, copyButton);
+      form.before(controls);
+    });
+
+    renderRecent();
+    const initialKey = location.hash.startsWith('#tool-') ? location.hash.slice(6) : '';
+    if (initialKey && panelByKey(initialKey)) {
+      setTimeout(() => showTool(initialKey), 0);
+    }
+    window.addEventListener('hashchange', () => {
+      const key = location.hash.startsWith('#tool-') ? location.hash.slice(6) : '';
+      if (key && panelByKey(key)) showTool(key);
+    });
+  });
+})();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  ready(() => {
+    const recommender = document.getElementById('tool-recommender-form');
+    const result = document.getElementById('tool-recommender-result');
+    const download = document.getElementById('download-favourites');
+    const clear = document.getElementById('clear-favourites');
+    const panels = [...document.querySelectorAll('.business-tools-grid .tool-panel[data-tool-key]')];
+    if (!panels.length) return;
+
+    const panelByKey = (key) => panels.find((panel) => panel.dataset.toolKey === key);
+    const titleOf = (panel) => panel?.querySelector('h3')?.textContent.trim() || 'Business tool';
+    const showPanel = (panel) => {
+      const search = document.getElementById('business-tool-search');
+      if (search) {
+        search.value = '';
+        search.dispatchEvent(new Event('input', {bubbles: true}));
+      }
+      document.querySelector('[data-tool-filter="all"]')?.click();
+      panel.hidden = false;
+      const open = panel.querySelector('.tool-open');
+      if (!panel.classList.contains('is-open')) open?.click();
+      panel.scrollIntoView({behavior: 'smooth', block: 'start'});
+    };
+
+    const recommendations = {
+      customers: ['local-seo', 'content-planner', 'review-request'],
+      website: ['requirements-brief', 'launch-checker', 'maintenance-plan'],
+      sales: ['lead-followup', 'lead-priority', 'payment-reminder'],
+      operations: ['client-onboarding', 'requirements-brief', 'maintenance-plan'],
+      support: ['issue-report', 'maintenance-plan', 'launch-checker']
+    };
+
+    recommender?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const goal = document.getElementById('recommend-goal')?.value || 'customers';
+      const stage = document.getElementById('recommend-stage')?.value || 'starting';
+      let keys = [...(recommendations[goal] || recommendations.customers)];
+      if (stage === 'starting' && keys.includes('requirements-brief')) {
+        keys = ['requirements-brief', ...keys.filter((key) => key !== 'requirements-brief')];
+      }
+      result.replaceChildren();
+      const intro = document.createElement('strong');
+      intro.textContent = 'Recommended next tools';
+      result.append(intro);
+      keys.map(panelByKey).filter(Boolean).forEach((panel) => {
+        const row = document.createElement('div');
+        row.className = 'recommended-tool';
+        const label = document.createElement('span');
+        label.textContent = titleOf(panel);
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = 'Open tool';
+        button.addEventListener('click', () => showPanel(panel));
+        row.append(label, button);
+        result.append(row);
+      });
+      result.hidden = false;
+    });
+
+    const favouritePanels = () => panels.filter((panel) => panel.querySelector('.tool-favourite.is-favourite'));
+    const refreshFavouriteActions = () => {
+      const count = favouritePanels().length;
+      if (download) {
+        download.disabled = count === 0;
+        download.textContent = count ? 'Download favourites (' + count + ')' : 'Download favourites';
+      }
+      if (clear) clear.disabled = count === 0;
+    };
+
+    document.addEventListener('click', (event) => {
+      if (event.target.closest('.tool-favourite')) setTimeout(refreshFavouriteActions, 0);
+    });
+
+    download?.addEventListener('click', () => {
+      const favourites = favouritePanels();
+      if (!favourites.length) return;
+      const base = location.origin + location.pathname;
+      const text = 'STARWALT FAVOURITE TOOLS\n\n' + favourites.map((panel, index) =>
+        (index + 1) + '. ' + titleOf(panel) + '\n' + base + '#tool-' + panel.dataset.toolKey
+      ).join('\n\n');
+      const blob = new Blob([text], {type: 'text/plain'});
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'starwalt-favourite-tools.txt';
+      link.click();
+      URL.revokeObjectURL(url);
+    });
+
+    clear?.addEventListener('click', () => {
+      favouritePanels().forEach((panel) => panel.querySelector('.tool-favourite')?.click());
+      refreshFavouriteActions();
+    });
+
+    setTimeout(refreshFavouriteActions, 0);
+  });
+})();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  ready(() => {
+    const remember = document.getElementById('remember-tool-entries');
+    const clearData = document.getElementById('clear-tool-data');
+    const storageStatus = document.getElementById('tool-storage-status');
+    const panels = [...document.querySelectorAll('.business-tools-grid .tool-panel[data-tool-key]')];
+    const forms = panels.map((panel) => panel.querySelector('form')).filter(Boolean);
+    if (!panels.length) return;
+
+    const draftKey = (form) => 'starwalt-tool-draft-' + form.id;
+    const fieldsOf = (form) => [...form.querySelectorAll('input, select, textarea')]
+      .filter((field) => !['button', 'submit', 'reset', 'file'].includes(field.type));
+
+    const setStatus = (message) => {
+      if (storageStatus) storageStatus.textContent = message;
+    };
+
+    const isRemembering = () => {
+      try {
+        return localStorage.getItem('starwalt-remember-tool-entries') === 'true';
+      } catch {
+        return false;
+      }
+    };
+
+    const saveForm = (form) => {
+      if (!isRemembering()) return;
+      const values = {};
+      fieldsOf(form).forEach((field, index) => {
+        const key = field.name || field.id || 'field-' + index;
+        if (field.type === 'checkbox' || field.type === 'radio') values[key] = field.checked;
+        else values[key] = field.value;
+      });
+      try {
+        localStorage.setItem(draftKey(form), JSON.stringify(values));
+        setStatus('Entries are saved only on this device. You can clear them at any time.');
+      } catch {
+        setStatus('This browser could not save entries. Your forms still work normally.');
+      }
+    };
+
+    const restoreForm = (form) => {
+      let values;
+      try {
+        values = JSON.parse(localStorage.getItem(draftKey(form)) || 'null');
+      } catch {
+        values = null;
+      }
+      if (!values) return;
+      fieldsOf(form).forEach((field, index) => {
+        const key = field.name || field.id || 'field-' + index;
+        if (!(key in values)) return;
+        if (field.type === 'checkbox' || field.type === 'radio') field.checked = Boolean(values[key]);
+        else field.value = values[key];
+      });
+    };
+
+    const removeDrafts = () => {
+      forms.forEach((form) => {
+        try { localStorage.removeItem(draftKey(form)); } catch {}
+      });
+    };
+
+    if (remember) {
+      remember.checked = isRemembering();
+      if (remember.checked) {
+        forms.forEach(restoreForm);
+        setStatus('Entries are saved only on this device. You can clear them at any time.');
+      }
+      remember.addEventListener('change', () => {
+        try {
+          localStorage.setItem('starwalt-remember-tool-entries', String(remember.checked));
+        } catch {
+          remember.checked = false;
+          setStatus('This browser does not allow local entry saving.');
+          return;
+        }
+        if (remember.checked) {
+          forms.forEach(saveForm);
+          setStatus('Entry saving is on for this device.');
+        } else {
+          removeDrafts();
+          setStatus('Entry saving is off. Previously saved entries were removed.');
+        }
+      });
+    }
+
+    forms.forEach((form) => {
+      form.addEventListener('input', () => saveForm(form));
+      form.addEventListener('change', () => saveForm(form));
+      form.addEventListener('reset', () => setTimeout(() => saveForm(form), 0));
+    });
+
+    clearData?.addEventListener('click', () => {
+      const approved = window.confirm('Clear saved entries, favourites and recently opened tools from this device?');
+      if (!approved) return;
+      try {
+        Object.keys(localStorage)
+          .filter((key) => key.startsWith('starwalt-'))
+          .forEach((key) => localStorage.removeItem(key));
+      } catch {}
+      forms.forEach((form) => form.reset());
+      location.reload();
+    });
+
+    panels.forEach((panel) => {
+      const controls = panel.querySelector('.tool-card-controls');
+      if (!controls || controls.querySelector('.tool-print')) return;
+      const printButton = document.createElement('button');
+      printButton.type = 'button';
+      printButton.className = 'tool-print';
+      printButton.textContent = 'Print tool';
+      printButton.addEventListener('click', () => {
+        if (!panel.classList.contains('is-open')) panel.querySelector('.tool-open')?.click();
+        document.body.classList.add('printing-tool');
+        panel.classList.add('print-target');
+        const cleanup = () => {
+          document.body.classList.remove('printing-tool');
+          panel.classList.remove('print-target');
+        };
+        window.addEventListener('afterprint', cleanup, {once: true});
+        window.print();
+      });
+      controls.append(printButton);
+    });
+  });
+})();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  ready(() => {
+    const panels = [...document.querySelectorAll('.business-tools-grid .tool-panel[data-tool-key]')];
+    const search = document.getElementById('business-tool-search');
+    if (!panels.length) return;
+
+    panels.forEach((panel) => {
+      const controls = panel.querySelector('.tool-card-controls');
+      if (!controls || controls.querySelector('.tool-share')) return;
+      const share = document.createElement('button');
+      share.type = 'button';
+      share.className = 'tool-share';
+      share.textContent = 'Share tool';
+      share.addEventListener('click', async () => {
+        const title = panel.querySelector('h3')?.textContent.trim() || 'Starwalt business tool';
+        const url = location.origin + location.pathname + '#tool-' + panel.dataset.toolKey;
+        if (navigator.share) {
+          try {
+            await navigator.share({title, text: 'Try this free Starwalt business tool: ' + title, url});
+            return;
+          } catch (error) {
+            if (error?.name === 'AbortError') return;
+          }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          const old = share.textContent;
+          share.textContent = 'Link copied';
+          setTimeout(() => { share.textContent = old; }, 1600);
+        } catch {
+          location.hash = 'tool-' + panel.dataset.toolKey;
+          share.textContent = 'Link ready';
+          setTimeout(() => { share.textContent = 'Share tool'; }, 1600);
+        }
+      });
+      controls.append(share);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      const target = event.target;
+      const typing = target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement || target?.isContentEditable;
+      const focusSearch = (event.key === '/' && !typing) || ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k');
+      if (focusSearch && search) {
+        event.preventDefault();
+        search.focus();
+        search.select();
+        search.scrollIntoView({behavior: 'smooth', block: 'center'});
+        return;
+      }
+      if (event.key === 'Escape') {
+        const openPanel = panels.find((panel) => panel.classList.contains('is-open'));
+        if (openPanel) {
+          openPanel.querySelector('.tool-open')?.click();
+          if (history.replaceState) history.replaceState(null, '', location.pathname + location.search);
+          openPanel.querySelector('.tool-open')?.focus();
+        } else if (typing) {
+          target.blur();
+        }
+      }
+    });
+  });
+})();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  const fallbackCopy = (text) => {
+    const area = document.createElement('textarea');
+    area.value = text;
+    area.setAttribute('readonly', '');
+    area.style.position = 'fixed';
+    area.style.opacity = '0';
+    document.body.append(area);
+    area.select();
+    const copied = document.execCommand('copy');
+    area.remove();
+    return copied;
+  };
+  ready(() => {
+    const panels = [...document.querySelectorAll('.business-tools-grid .tool-panel[data-tool-key]')];
+    panels.forEach((panel) => {
+      const result = panel.querySelector('.tool-result');
+      if (!result || result.nextElementSibling?.classList.contains('generated-result-actions')) return;
+
+      const actions = document.createElement('div');
+      actions.className = 'generated-result-actions';
+      actions.hidden = true;
+
+      const copy = document.createElement('button');
+      copy.type = 'button';
+      copy.textContent = 'Copy result';
+
+      const download = document.createElement('button');
+      download.type = 'button';
+      download.textContent = 'Download result';
+
+      const clear = document.createElement('button');
+      clear.type = 'button';
+      clear.className = 'clear-generated-result';
+      clear.textContent = 'Clear result';
+
+      const resultText = () => result.innerText.trim();
+      const update = () => {
+        actions.hidden = result.hidden || !resultText();
+      };
+
+      copy.addEventListener('click', async () => {
+        const text = resultText();
+        if (!text) return;
+        let copied = false;
+        try {
+          await navigator.clipboard.writeText(text);
+          copied = true;
+        } catch {
+          copied = fallbackCopy(text);
+        }
+        if (copied) {
+          copy.textContent = 'Copied';
+          setTimeout(() => { copy.textContent = 'Copy result'; }, 1600);
+        }
+      });
+
+      download.addEventListener('click', () => {
+        const text = resultText();
+        if (!text) return;
+        const title = panel.querySelector('h3')?.textContent.trim() || 'Starwalt tool result';
+        const content = title.toUpperCase() + '\n\n' + text;
+        const blob = new Blob([content], {type: 'text/plain'});
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'starwalt-' + panel.dataset.toolKey + '-result.txt';
+        link.click();
+        URL.revokeObjectURL(url);
+      });
+
+      clear.addEventListener('click', () => {
+        result.replaceChildren();
+        result.hidden = true;
+        actions.hidden = true;
+      });
+
+      actions.append(copy, download, clear);
+      result.after(actions);
+      new MutationObserver(update).observe(result, {attributes: true, childList: true, subtree: true});
+      update();
+    });
+  });
+})();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  ready(() => {
+    const largeText = document.getElementById('tool-large-text');
+    const highContrast = document.getElementById('tool-high-contrast');
+    const reduceMotion = document.getElementById('tool-reduce-motion');
+    const reset = document.getElementById('reset-tool-display');
+    const status = document.getElementById('tool-display-status');
+    if (!largeText || !highContrast || !reduceMotion) return;
+
+    const storageKey = 'starwalt-tool-display';
+    const systemReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches || false;
+    let saved = null;
+    try {
+      saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
+    } catch {
+      saved = null;
+    }
+
+    largeText.checked = Boolean(saved?.largeText);
+    highContrast.checked = Boolean(saved?.highContrast);
+    reduceMotion.checked = saved ? Boolean(saved.reduceMotion) : systemReducedMotion;
+
+    const apply = (announce = true) => {
+      document.body.classList.toggle('tool-large-text', largeText.checked);
+      document.body.classList.toggle('tool-high-contrast', highContrast.checked);
+      document.body.classList.toggle('tool-reduce-motion', reduceMotion.checked);
+      const active = [
+        largeText.checked && 'larger text',
+        highContrast.checked && 'higher contrast',
+        reduceMotion.checked && 'reduced motion'
+      ].filter(Boolean);
+      if (status && announce) status.textContent = active.length
+        ? 'Active: ' + active.join(', ') + '.'
+        : 'Default display settings are active.';
+    };
+
+    const save = () => {
+      const preferences = {
+        largeText: largeText.checked,
+        highContrast: highContrast.checked,
+        reduceMotion: reduceMotion.checked
+      };
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(preferences));
+      } catch {
+        if (status) status.textContent = 'Settings are active for this visit but could not be saved.';
+      }
+      apply();
+    };
+
+    [largeText, highContrast, reduceMotion].forEach((control) => control.addEventListener('change', save));
+    reset?.addEventListener('click', () => {
+      largeText.checked = false;
+      highContrast.checked = false;
+      reduceMotion.checked = systemReducedMotion;
+      try { localStorage.removeItem(storageKey); } catch {}
+      apply();
+      if (status) status.textContent = systemReducedMotion
+        ? 'Display reset. Reduced motion follows your device preference.'
+        : 'Display settings reset to default.';
+    });
+
+    apply(false);
+    if (status) {
+      const active = [
+        largeText.checked && 'larger text',
+        highContrast.checked && 'higher contrast',
+        reduceMotion.checked && 'reduced motion'
+      ].filter(Boolean);
+      status.textContent = active.length ? 'Active: ' + active.join(', ') + '.' : 'Default display settings are active.';
+    }
+  });
+})();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  ready(() => {
+    const installButton = document.getElementById('install-starwalt-tools');
+    const updateButton = document.getElementById('update-starwalt-tools');
+    const connection = document.getElementById('connection-status');
+    let installPrompt = null;
+
+    const updateConnection = () => {
+      if (!connection) return;
+      const online = navigator.onLine;
+      connection.textContent = online ? 'Online' : 'Offline — cached tools remain available';
+      connection.classList.toggle('is-offline', !online);
+    };
+    updateConnection();
+    window.addEventListener('online', updateConnection);
+    window.addEventListener('offline', updateConnection);
+
+    window.addEventListener('beforeinstallprompt', (event) => {
+      event.preventDefault();
+      installPrompt = event;
+      if (installButton) installButton.hidden = false;
+    });
+
+    installButton?.addEventListener('click', async () => {
+      if (!installPrompt) return;
+      installPrompt.prompt();
+      await installPrompt.userChoice;
+      installPrompt = null;
+      installButton.hidden = true;
+    });
+
+    window.addEventListener('appinstalled', () => {
+      installPrompt = null;
+      if (installButton) installButton.hidden = true;
+    });
+
+    if (!('serviceWorker' in navigator)) return;
+    window.addEventListener('load', async () => {
+      try {
+        const registration = await navigator.serviceWorker.register('/service-worker.js', {scope: '/'});
+        const showUpdate = (worker) => {
+          worker?.addEventListener('statechange', () => {
+            if (worker.state === 'installed' && navigator.serviceWorker.controller && updateButton) {
+              updateButton.hidden = false;
+            }
+          });
+        };
+        if (registration.waiting && updateButton) updateButton.hidden = false;
+        registration.addEventListener('updatefound', () => showUpdate(registration.installing));
+
+        updateButton?.addEventListener('click', () => {
+          const waiting = registration.waiting;
+          if (!waiting) {
+            registration.update();
+            return;
+          }
+          waiting.postMessage({type: 'SKIP_WAITING'});
+          updateButton.disabled = true;
+          updateButton.textContent = 'Updating…';
+        });
+
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          if (refreshing) return;
+          refreshing = true;
+          location.reload();
+        });
+      } catch {
+        if (connection) connection.title = 'Offline setup is unavailable in this browser.';
+      }
+    });
+  });
+})();
