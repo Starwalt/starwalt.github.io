@@ -1,11 +1,11 @@
 {
-  "name": "Dimple Enterprises",
-  "short_name": "Dimple",
-  "start_url": "/index.html",
+  "name": "STARWALT COMPANY Business Tools",
+  "short_name": "Starwalt",
+  "start_url": "/index.html#business-tools",
   "display": "standalone",
   "background_color": "#fbfcfe",
   "theme_color": "#0b1739",
-  "description": "Websites and digital growth solutions for businesses.",
+  "description": "Website, marketing, sales and business planning tools from STARWALT COMPANY in Vellore.",
   "scope": "/",
   "orientation": "any",
   "icons": [
@@ -17,6 +17,11 @@
     }
   ],
   "shortcuts": [
+    {
+      "name": "Open business tools",
+      "short_name": "Tools",
+      "url": "/index.html#business-tools"
+    },
     {
       "name": "Request a quote",
       "short_name": "Quote",
@@ -32,5 +37,10 @@
       "short_name": "தமிழ்",
       "url": "/ta.html"
     }
+  ],
+  "categories": [
+    "business",
+    "productivity",
+    "utilities"
   ]
 }
