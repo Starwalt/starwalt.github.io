@@ -282,3 +282,21 @@
 .favourite-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.75rem}
 .favourite-actions button:disabled{opacity:.5;cursor:not-allowed}
 @media (max-width:620px){.tool-recommender-fields{grid-template-columns:1fr}.recommended-tool{align-items:flex-start;flex-direction:column}.recommended-tool button{width:100%}.favourite-actions>*{flex:1 1 140px}}
+
+/* Local draft privacy controls */
+.tool-privacy-controls{display:grid;gap:.55rem;margin-top:.8rem;padding-top:.8rem;border-top:1px solid #e3e8f2}
+.remember-tools{display:flex;align-items:flex-start;gap:.55rem;font-weight:750;color:#334155}
+.remember-tools input{width:1.05rem;height:1.05rem;margin-top:.15rem;accent-color:#1d5cff}
+.tool-privacy-controls>button{justify-self:start}
+.tool-privacy-controls p{margin:0;color:#64748b;font-size:.8rem}
+.tool-print{border:1px solid #c9d5ea;border-radius:10px;background:#fff;color:#163568;padding:.55rem .75rem;font:inherit;font-size:.86rem;font-weight:800;cursor:pointer}
+.tool-print:hover,.tool-print:focus-visible{border-color:#1d5cff;color:#1d5cff}
+@media (max-width:520px){.tool-privacy-controls>button{width:100%}.tool-print{flex:1 1 120px}}
+@media print{
+  @page{margin:14mm}
+  body.printing-tool *{visibility:hidden!important}
+  body.printing-tool .print-target,body.printing-tool .print-target *{visibility:visible!important}
+  body.printing-tool .print-target{display:block!important;position:absolute;left:0;top:0;width:100%;max-width:none;border:0;box-shadow:none;padding:0}
+  body.printing-tool .print-target form{display:grid!important}
+  body.printing-tool .print-target .tool-card-controls,body.printing-tool .print-target .tool-favourite,body.printing-tool .print-target .tool-actions,body.printing-tool .print-target .whatsapp-tool{display:none!important}
+}
