@@ -300,3 +300,12 @@
   body.printing-tool .print-target form{display:grid!important}
   body.printing-tool .print-target .tool-card-controls,body.printing-tool .print-target .tool-favourite,body.printing-tool .print-target .tool-actions,body.printing-tool .print-target .whatsapp-tool{display:none!important}
 }
+
+/* Sharing and keyboard help */
+.tool-share{border:1px solid #c9d5ea;border-radius:10px;background:#fff;color:#163568;padding:.55rem .75rem;font:inherit;font-size:.86rem;font-weight:800;cursor:pointer}
+.tool-share:hover,.tool-share:focus-visible{border-color:#1d5cff;color:#1d5cff}
+.keyboard-help{margin-top:.8rem;padding-top:.75rem;border-top:1px solid #e3e8f2;color:#334155}
+.keyboard-help summary{cursor:pointer;font-weight:800;color:#163568}
+.keyboard-help ul{margin:.6rem 0 0;padding-left:1.2rem;display:grid;gap:.4rem;font-size:.85rem}
+.keyboard-help kbd{display:inline-block;min-width:1.55rem;padding:.12rem .35rem;border:1px solid #cbd5e1;border-bottom-width:2px;border-radius:5px;background:#f8fafc;color:#0f172a;text-align:center;font:inherit;font-size:.78rem;font-weight:800}
+@media (max-width:520px){.tool-share{flex:1 1 120px}}
