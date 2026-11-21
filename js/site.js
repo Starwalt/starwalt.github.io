@@ -722,3 +722,102 @@ const b=document.querySelector('.menu'),n=document.querySelector('nav');if(b&&n)
     });
   });
 })();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  ready(() => {
+    const recommender = document.getElementById('tool-recommender-form');
+    const result = document.getElementById('tool-recommender-result');
+    const download = document.getElementById('download-favourites');
+    const clear = document.getElementById('clear-favourites');
+    const panels = [...document.querySelectorAll('.business-tools-grid .tool-panel[data-tool-key]')];
+    if (!panels.length) return;
+
+    const panelByKey = (key) => panels.find((panel) => panel.dataset.toolKey === key);
+    const titleOf = (panel) => panel?.querySelector('h3')?.textContent.trim() || 'Business tool';
+    const showPanel = (panel) => {
+      const search = document.getElementById('business-tool-search');
+      if (search) {
+        search.value = '';
+        search.dispatchEvent(new Event('input', {bubbles: true}));
+      }
+      document.querySelector('[data-tool-filter="all"]')?.click();
+      panel.hidden = false;
+      const open = panel.querySelector('.tool-open');
+      if (!panel.classList.contains('is-open')) open?.click();
+      panel.scrollIntoView({behavior: 'smooth', block: 'start'});
+    };
+
+    const recommendations = {
+      customers: ['local-seo', 'content-planner', 'review-request'],
+      website: ['requirements-brief', 'launch-checker', 'maintenance-plan'],
+      sales: ['lead-followup', 'lead-priority', 'payment-reminder'],
+      operations: ['client-onboarding', 'requirements-brief', 'maintenance-plan'],
+      support: ['issue-report', 'maintenance-plan', 'launch-checker']
+    };
+
+    recommender?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const goal = document.getElementById('recommend-goal')?.value || 'customers';
+      const stage = document.getElementById('recommend-stage')?.value || 'starting';
+      let keys = [...(recommendations[goal] || recommendations.customers)];
+      if (stage === 'starting' && keys.includes('requirements-brief')) {
+        keys = ['requirements-brief', ...keys.filter((key) => key !== 'requirements-brief')];
+      }
+      result.replaceChildren();
+      const intro = document.createElement('strong');
+      intro.textContent = 'Recommended next tools';
+      result.append(intro);
+      keys.map(panelByKey).filter(Boolean).forEach((panel) => {
+        const row = document.createElement('div');
+        row.className = 'recommended-tool';
+        const label = document.createElement('span');
+        label.textContent = titleOf(panel);
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = 'Open tool';
+        button.addEventListener('click', () => showPanel(panel));
+        row.append(label, button);
+        result.append(row);
+      });
+      result.hidden = false;
+    });
+
+    const favouritePanels = () => panels.filter((panel) => panel.querySelector('.tool-favourite.is-favourite'));
+    const refreshFavouriteActions = () => {
+      const count = favouritePanels().length;
+      if (download) {
+        download.disabled = count === 0;
+        download.textContent = count ? 'Download favourites (' + count + ')' : 'Download favourites';
+      }
+      if (clear) clear.disabled = count === 0;
+    };
+
+    document.addEventListener('click', (event) => {
+      if (event.target.closest('.tool-favourite')) setTimeout(refreshFavouriteActions, 0);
+    });
+
+    download?.addEventListener('click', () => {
+      const favourites = favouritePanels();
+      if (!favourites.length) return;
+      const base = location.origin + location.pathname;
+      const text = 'STARWALT FAVOURITE TOOLS\n\n' + favourites.map((panel, index) =>
+        (index + 1) + '. ' + titleOf(panel) + '\n' + base + '#tool-' + panel.dataset.toolKey
+      ).join('\n\n');
+      const blob = new Blob([text], {type: 'text/plain'});
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'starwalt-favourite-tools.txt';
+      link.click();
+      URL.revokeObjectURL(url);
+    });
+
+    clear?.addEventListener('click', () => {
+      favouritePanels().forEach((panel) => panel.querySelector('.tool-favourite')?.click());
+      refreshFavouriteActions();
+    });
+
+    setTimeout(refreshFavouriteActions, 0);
+  });
+})();
