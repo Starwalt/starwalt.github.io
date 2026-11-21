@@ -1014,3 +1014,89 @@ const b=document.querySelector('.menu'),n=document.querySelector('nav');if(b&&n)
     });
   });
 })();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  const fallbackCopy = (text) => {
+    const area = document.createElement('textarea');
+    area.value = text;
+    area.setAttribute('readonly', '');
+    area.style.position = 'fixed';
+    area.style.opacity = '0';
+    document.body.append(area);
+    area.select();
+    const copied = document.execCommand('copy');
+    area.remove();
+    return copied;
+  };
+  ready(() => {
+    const panels = [...document.querySelectorAll('.business-tools-grid .tool-panel[data-tool-key]')];
+    panels.forEach((panel) => {
+      const result = panel.querySelector('.tool-result');
+      if (!result || result.nextElementSibling?.classList.contains('generated-result-actions')) return;
+
+      const actions = document.createElement('div');
+      actions.className = 'generated-result-actions';
+      actions.hidden = true;
+
+      const copy = document.createElement('button');
+      copy.type = 'button';
+      copy.textContent = 'Copy result';
+
+      const download = document.createElement('button');
+      download.type = 'button';
+      download.textContent = 'Download result';
+
+      const clear = document.createElement('button');
+      clear.type = 'button';
+      clear.className = 'clear-generated-result';
+      clear.textContent = 'Clear result';
+
+      const resultText = () => result.innerText.trim();
+      const update = () => {
+        actions.hidden = result.hidden || !resultText();
+      };
+
+      copy.addEventListener('click', async () => {
+        const text = resultText();
+        if (!text) return;
+        let copied = false;
+        try {
+          await navigator.clipboard.writeText(text);
+          copied = true;
+        } catch {
+          copied = fallbackCopy(text);
+        }
+        if (copied) {
+          copy.textContent = 'Copied';
+          setTimeout(() => { copy.textContent = 'Copy result'; }, 1600);
+        }
+      });
+
+      download.addEventListener('click', () => {
+        const text = resultText();
+        if (!text) return;
+        const title = panel.querySelector('h3')?.textContent.trim() || 'Starwalt tool result';
+        const content = title.toUpperCase() + '\n\n' + text;
+        const blob = new Blob([content], {type: 'text/plain'});
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'starwalt-' + panel.dataset.toolKey + '-result.txt';
+        link.click();
+        URL.revokeObjectURL(url);
+      });
+
+      clear.addEventListener('click', () => {
+        result.replaceChildren();
+        result.hidden = true;
+        actions.hidden = true;
+      });
+
+      actions.append(copy, download, clear);
+      result.after(actions);
+      new MutationObserver(update).observe(result, {attributes: true, childList: true, subtree: true});
+      update();
+    });
+  });
+})();
