@@ -1175,3 +1175,78 @@ const b=document.querySelector('.menu'),n=document.querySelector('nav');if(b&&n)
     }
   });
 })();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  ready(() => {
+    const installButton = document.getElementById('install-starwalt-tools');
+    const updateButton = document.getElementById('update-starwalt-tools');
+    const connection = document.getElementById('connection-status');
+    let installPrompt = null;
+
+    const updateConnection = () => {
+      if (!connection) return;
+      const online = navigator.onLine;
+      connection.textContent = online ? 'Online' : 'Offline — cached tools remain available';
+      connection.classList.toggle('is-offline', !online);
+    };
+    updateConnection();
+    window.addEventListener('online', updateConnection);
+    window.addEventListener('offline', updateConnection);
+
+    window.addEventListener('beforeinstallprompt', (event) => {
+      event.preventDefault();
+      installPrompt = event;
+      if (installButton) installButton.hidden = false;
+    });
+
+    installButton?.addEventListener('click', async () => {
+      if (!installPrompt) return;
+      installPrompt.prompt();
+      await installPrompt.userChoice;
+      installPrompt = null;
+      installButton.hidden = true;
+    });
+
+    window.addEventListener('appinstalled', () => {
+      installPrompt = null;
+      if (installButton) installButton.hidden = true;
+    });
+
+    if (!('serviceWorker' in navigator)) return;
+    window.addEventListener('load', async () => {
+      try {
+        const registration = await navigator.serviceWorker.register('/service-worker.js', {scope: '/'});
+        const showUpdate = (worker) => {
+          worker?.addEventListener('statechange', () => {
+            if (worker.state === 'installed' && navigator.serviceWorker.controller && updateButton) {
+              updateButton.hidden = false;
+            }
+          });
+        };
+        if (registration.waiting && updateButton) updateButton.hidden = false;
+        registration.addEventListener('updatefound', () => showUpdate(registration.installing));
+
+        updateButton?.addEventListener('click', () => {
+          const waiting = registration.waiting;
+          if (!waiting) {
+            registration.update();
+            return;
+          }
+          waiting.postMessage({type: 'SKIP_WAITING'});
+          updateButton.disabled = true;
+          updateButton.textContent = 'Updating…';
+        });
+
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          if (refreshing) return;
+          refreshing = true;
+          location.reload();
+        });
+      } catch {
+        if (connection) connection.title = 'Offline setup is unavailable in this browser.';
+      }
+    });
+  });
+})();
