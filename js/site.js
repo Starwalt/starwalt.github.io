@@ -504,3 +504,84 @@ const b=document.querySelector('.menu'),n=document.querySelector('nav');if(b&&n)
     }
   });
 })();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  ready(() => {
+    const search = document.getElementById('business-tool-search');
+    const filters = [...document.querySelectorAll('[data-tool-filter]')];
+    const panels = [...document.querySelectorAll('.business-tools-grid .tool-panel[data-tool-key]')];
+    const status = document.getElementById('tool-directory-status');
+    if (!search || !panels.length || !status) return;
+
+    let activeFilter = 'all';
+    let favourites = new Set();
+    try {
+      favourites = new Set(JSON.parse(localStorage.getItem('starwalt-tool-favourites') || '[]'));
+    } catch {
+      favourites = new Set();
+    }
+
+    const saveFavourites = () => {
+      try {
+        localStorage.setItem('starwalt-tool-favourites', JSON.stringify([...favourites]));
+      } catch {
+        // Favourites remain available for the current visit when storage is unavailable.
+      }
+    };
+
+    const updateFavouriteButton = (button, key) => {
+      const saved = favourites.has(key);
+      button.classList.toggle('is-favourite', saved);
+      button.textContent = saved ? '★' : '☆';
+      button.setAttribute('aria-pressed', String(saved));
+      button.setAttribute('aria-label', saved ? 'Remove from favourites' : 'Save to favourites');
+      button.title = saved ? 'Remove from favourites' : 'Save to favourites';
+    };
+
+    panels.forEach((panel) => {
+      const key = panel.dataset.toolKey;
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'tool-favourite';
+      updateFavouriteButton(button, key);
+      button.addEventListener('click', () => {
+        favourites.has(key) ? favourites.delete(key) : favourites.add(key);
+        saveFavourites();
+        updateFavouriteButton(button, key);
+        applyFilters();
+      });
+      panel.prepend(button);
+    });
+
+    function applyFilters() {
+      const query = search.value.trim().toLowerCase();
+      let visible = 0;
+      panels.forEach((panel) => {
+        const categoryMatch = activeFilter === 'all'
+          || (activeFilter === 'favourites' ? favourites.has(panel.dataset.toolKey) : panel.dataset.toolCategory === activeFilter);
+        const searchable = (panel.dataset.toolKeywords + ' ' + panel.textContent).toLowerCase();
+        const queryMatch = !query || searchable.includes(query);
+        const show = categoryMatch && queryMatch;
+        panel.hidden = !show;
+        if (show) visible += 1;
+      });
+      const filterLabel = activeFilter === 'all' ? 'tools' : activeFilter === 'favourites' ? 'favourite tools' : activeFilter + ' tools';
+      status.textContent = visible
+        ? 'Showing ' + visible + ' ' + filterLabel
+        : activeFilter === 'favourites' && favourites.size === 0
+          ? 'No favourites saved yet. Tap the star on any tool to save it.'
+          : 'No tools match this search. Try another keyword or category.';
+    }
+
+    search.addEventListener('input', applyFilters);
+    filters.forEach((button) => {
+      button.addEventListener('click', () => {
+        activeFilter = button.dataset.toolFilter;
+        filters.forEach((item) => item.classList.toggle('is-active', item === button));
+        applyFilters();
+      });
+    });
+    applyFilters();
+  });
+})();
