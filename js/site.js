@@ -1100,3 +1100,78 @@ const b=document.querySelector('.menu'),n=document.querySelector('nav');if(b&&n)
     });
   });
 })();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  ready(() => {
+    const largeText = document.getElementById('tool-large-text');
+    const highContrast = document.getElementById('tool-high-contrast');
+    const reduceMotion = document.getElementById('tool-reduce-motion');
+    const reset = document.getElementById('reset-tool-display');
+    const status = document.getElementById('tool-display-status');
+    if (!largeText || !highContrast || !reduceMotion) return;
+
+    const storageKey = 'starwalt-tool-display';
+    const systemReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches || false;
+    let saved = null;
+    try {
+      saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
+    } catch {
+      saved = null;
+    }
+
+    largeText.checked = Boolean(saved?.largeText);
+    highContrast.checked = Boolean(saved?.highContrast);
+    reduceMotion.checked = saved ? Boolean(saved.reduceMotion) : systemReducedMotion;
+
+    const apply = (announce = true) => {
+      document.body.classList.toggle('tool-large-text', largeText.checked);
+      document.body.classList.toggle('tool-high-contrast', highContrast.checked);
+      document.body.classList.toggle('tool-reduce-motion', reduceMotion.checked);
+      const active = [
+        largeText.checked && 'larger text',
+        highContrast.checked && 'higher contrast',
+        reduceMotion.checked && 'reduced motion'
+      ].filter(Boolean);
+      if (status && announce) status.textContent = active.length
+        ? 'Active: ' + active.join(', ') + '.'
+        : 'Default display settings are active.';
+    };
+
+    const save = () => {
+      const preferences = {
+        largeText: largeText.checked,
+        highContrast: highContrast.checked,
+        reduceMotion: reduceMotion.checked
+      };
+      try {
+        localStorage.setItem(storageKey, JSON.stringify(preferences));
+      } catch {
+        if (status) status.textContent = 'Settings are active for this visit but could not be saved.';
+      }
+      apply();
+    };
+
+    [largeText, highContrast, reduceMotion].forEach((control) => control.addEventListener('change', save));
+    reset?.addEventListener('click', () => {
+      largeText.checked = false;
+      highContrast.checked = false;
+      reduceMotion.checked = systemReducedMotion;
+      try { localStorage.removeItem(storageKey); } catch {}
+      apply();
+      if (status) status.textContent = systemReducedMotion
+        ? 'Display reset. Reduced motion follows your device preference.'
+        : 'Display settings reset to default.';
+    });
+
+    apply(false);
+    if (status) {
+      const active = [
+        largeText.checked && 'larger text',
+        highContrast.checked && 'higher contrast',
+        reduceMotion.checked && 'reduced motion'
+      ].filter(Boolean);
+      status.textContent = active.length ? 'Active: ' + active.join(', ') + '.' : 'Default display settings are active.';
+    }
+  });
+})();
