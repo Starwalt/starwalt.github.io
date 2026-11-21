@@ -585,3 +585,140 @@ const b=document.querySelector('.menu'),n=document.querySelector('nav');if(b&&n)
     applyFilters();
   });
 })();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  ready(() => {
+    const panels = [...document.querySelectorAll('.business-tools-grid .tool-panel[data-tool-key]')];
+    const recentBox = document.getElementById('recent-tools');
+    const recentList = document.getElementById('recent-tools-list');
+    const search = document.getElementById('business-tool-search');
+    const allFilter = document.querySelector('[data-tool-filter="all"]');
+    if (!panels.length) return;
+
+    let recent = [];
+    try {
+      recent = JSON.parse(localStorage.getItem('starwalt-recent-tools') || '[]');
+      if (!Array.isArray(recent)) recent = [];
+    } catch {
+      recent = [];
+    }
+
+    const panelByKey = (key) => panels.find((panel) => panel.dataset.toolKey === key);
+    const panelTitle = (panel) => panel.querySelector('h3')?.textContent.trim() || 'Business tool';
+
+    const saveRecent = (key) => {
+      recent = [key, ...recent.filter((item) => item !== key)].slice(0, 4);
+      try {
+        localStorage.setItem('starwalt-recent-tools', JSON.stringify(recent));
+      } catch {
+        // Recent shortcuts still work during the current visit.
+      }
+      renderRecent();
+    };
+
+    const closePanel = (panel) => {
+      const form = panel.querySelector('form');
+      const button = panel.querySelector('.tool-open');
+      if (form) form.hidden = true;
+      panel.classList.remove('is-open');
+      if (button) {
+        button.textContent = 'Open tool';
+        button.setAttribute('aria-expanded', 'false');
+      }
+    };
+
+    const openPanel = (panel, shouldScroll = true) => {
+      panels.forEach((item) => { if (item !== panel) closePanel(item); });
+      const form = panel.querySelector('form');
+      const button = panel.querySelector('.tool-open');
+      if (form) form.hidden = false;
+      panel.classList.add('is-open');
+      if (button) {
+        button.textContent = 'Close tool';
+        button.setAttribute('aria-expanded', 'true');
+      }
+      saveRecent(panel.dataset.toolKey);
+      const hash = '#' + panel.id;
+      if (history.replaceState) history.replaceState(null, '', hash);
+      if (shouldScroll) panel.scrollIntoView({behavior: 'smooth', block: 'start'});
+    };
+
+    const showTool = (key) => {
+      const panel = panelByKey(key);
+      if (!panel) return;
+      if (search) {
+        search.value = '';
+        search.dispatchEvent(new Event('input', {bubbles: true}));
+      }
+      allFilter?.click();
+      panel.hidden = false;
+      openPanel(panel);
+    };
+
+    function renderRecent() {
+      if (!recentBox || !recentList) return;
+      const available = recent.map(panelByKey).filter(Boolean);
+      recentList.replaceChildren();
+      available.forEach((panel) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'recent-tool-link';
+        button.textContent = panelTitle(panel);
+        button.addEventListener('click', () => showTool(panel.dataset.toolKey));
+        recentList.append(button);
+      });
+      recentBox.hidden = available.length === 0;
+    }
+
+    panels.forEach((panel) => {
+      const key = panel.dataset.toolKey;
+      panel.id = 'tool-' + key;
+      const form = panel.querySelector('form');
+      if (!form) return;
+      form.hidden = true;
+
+      const controls = document.createElement('div');
+      controls.className = 'tool-card-controls';
+      const openButton = document.createElement('button');
+      openButton.type = 'button';
+      openButton.className = 'tool-open';
+      openButton.textContent = 'Open tool';
+      openButton.setAttribute('aria-expanded', 'false');
+      openButton.setAttribute('aria-controls', form.id);
+
+      const copyButton = document.createElement('button');
+      copyButton.type = 'button';
+      copyButton.className = 'tool-copy-link';
+      copyButton.textContent = 'Copy tool link';
+
+      openButton.addEventListener('click', () => {
+        panel.classList.contains('is-open') ? closePanel(panel) : openPanel(panel, false);
+      });
+      copyButton.addEventListener('click', async () => {
+        const link = location.origin + location.pathname + '#tool-' + key;
+        try {
+          await navigator.clipboard.writeText(link);
+          copyButton.textContent = 'Link copied';
+          setTimeout(() => { copyButton.textContent = 'Copy tool link'; }, 1600);
+        } catch {
+          location.hash = 'tool-' + key;
+          copyButton.textContent = 'Link ready';
+          setTimeout(() => { copyButton.textContent = 'Copy tool link'; }, 1600);
+        }
+      });
+      controls.append(openButton, copyButton);
+      form.before(controls);
+    });
+
+    renderRecent();
+    const initialKey = location.hash.startsWith('#tool-') ? location.hash.slice(6) : '';
+    if (initialKey && panelByKey(initialKey)) {
+      setTimeout(() => showTool(initialKey), 0);
+    }
+    window.addEventListener('hashchange', () => {
+      const key = location.hash.startsWith('#tool-') ? location.hash.slice(6) : '';
+      if (key && panelByKey(key)) showTool(key);
+    });
+  });
+})();
