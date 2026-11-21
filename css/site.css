@@ -318,3 +318,20 @@
 .generated-result-actions .clear-generated-result:hover,.generated-result-actions .clear-generated-result:focus-visible{border-color:#e11d48;color:#be123c}
 @media (max-width:520px){.generated-result-actions{display:grid;grid-template-columns:1fr 1fr}.generated-result-actions button:last-child{grid-column:1/-1}}
 @media print{body.printing-tool .generated-result-actions{display:none!important}}
+
+/* Tool accessibility preferences */
+.tool-accessibility{margin-top:.8rem;padding-top:.75rem;border-top:1px solid #e3e8f2;color:#334155}
+.tool-accessibility summary{cursor:pointer;font-weight:800;color:#163568}
+.accessibility-controls{display:grid;gap:.6rem;margin-top:.7rem}
+.accessibility-controls label{display:flex;align-items:flex-start;gap:.55rem;font-weight:750}
+.accessibility-controls input{width:1.05rem;height:1.05rem;margin-top:.12rem;accent-color:#1d5cff}
+.accessibility-controls button{justify-self:start}
+.accessibility-controls p{margin:0;color:#64748b;font-size:.8rem}
+body.tool-large-text .business-tools{font-size:112%}
+body.tool-large-text .business-tools .field-help,body.tool-large-text .business-tools .tool-directory-status{font-size:.9em}
+body.tool-high-contrast .business-tools{background:#fff;color:#050b18}
+body.tool-high-contrast .business-tools .tool-panel,body.tool-high-contrast .business-tools .tool-directory{border:2px solid #0e2552;box-shadow:none}
+body.tool-high-contrast .business-tools input,body.tool-high-contrast .business-tools select,body.tool-high-contrast .business-tools textarea{border:2px solid #334155;background:#fff;color:#050b18}
+body.tool-high-contrast .business-tools .tool-result,body.tool-high-contrast .business-tools .tool-recommender-result{border:2px solid #0e2552;background:#eef4ff;color:#050b18}
+body.tool-reduce-motion .business-tools *,body.tool-reduce-motion .business-tools *::before,body.tool-reduce-motion .business-tools *::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+@media (max-width:520px){.accessibility-controls button{width:100%}}
