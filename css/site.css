@@ -267,3 +267,18 @@
 .recent-tool-link{border:1px solid #d5deee;border-radius:999px;background:#fff;color:#334155;padding:.42rem .7rem;font:inherit;font-size:.82rem;font-weight:700;cursor:pointer}
 .recent-tool-link:hover,.recent-tool-link:focus-visible{border-color:#1d5cff;color:#1d5cff}
 @media (max-width:520px){.tool-card-controls>*{flex:1 1 120px}.recent-tools-list{display:grid;grid-template-columns:1fr}.recent-tool-link{text-align:left}}
+
+/* Tool recommender and favourite management */
+.tool-recommender{margin-top:.9rem;border-top:1px solid #e3e8f2;padding-top:.8rem}
+.tool-recommender summary{cursor:pointer;color:#163568;font-weight:800}
+.tool-recommender form{display:grid;gap:.75rem;margin-top:.75rem}
+.tool-recommender-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem}
+.tool-recommender label{display:grid;gap:.35rem;font-weight:750;font-size:.88rem}
+.tool-recommender select{width:100%;border:1px solid #cbd5e1;border-radius:11px;padding:.7rem;background:#fff;color:#0f172a;font:inherit}
+.tool-recommender-result{display:grid;gap:.5rem;padding:.75rem;border-radius:14px;background:#eff5ff;border:1px solid #cfddff}
+.recommended-tool{display:flex;align-items:center;justify-content:space-between;gap:.7rem;padding:.65rem;background:#fff;border:1px solid #d9e3f7;border-radius:11px}
+.recommended-tool span{font-weight:750;color:#163568}
+.recommended-tool button{border:0;border-radius:9px;background:#1d5cff;color:#fff;padding:.48rem .68rem;font:inherit;font-size:.82rem;font-weight:800;cursor:pointer}
+.favourite-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.75rem}
+.favourite-actions button:disabled{opacity:.5;cursor:not-allowed}
+@media (max-width:620px){.tool-recommender-fields{grid-template-columns:1fr}.recommended-tool{align-items:flex-start;flex-direction:column}.recommended-tool button{width:100%}.favourite-actions>*{flex:1 1 140px}}
