@@ -950,3 +950,67 @@ const b=document.querySelector('.menu'),n=document.querySelector('nav');if(b&&n)
     });
   });
 })();
+
+;(() => {
+  const ready = (fn) => document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', fn) : fn();
+  ready(() => {
+    const panels = [...document.querySelectorAll('.business-tools-grid .tool-panel[data-tool-key]')];
+    const search = document.getElementById('business-tool-search');
+    if (!panels.length) return;
+
+    panels.forEach((panel) => {
+      const controls = panel.querySelector('.tool-card-controls');
+      if (!controls || controls.querySelector('.tool-share')) return;
+      const share = document.createElement('button');
+      share.type = 'button';
+      share.className = 'tool-share';
+      share.textContent = 'Share tool';
+      share.addEventListener('click', async () => {
+        const title = panel.querySelector('h3')?.textContent.trim() || 'Starwalt business tool';
+        const url = location.origin + location.pathname + '#tool-' + panel.dataset.toolKey;
+        if (navigator.share) {
+          try {
+            await navigator.share({title, text: 'Try this free Starwalt business tool: ' + title, url});
+            return;
+          } catch (error) {
+            if (error?.name === 'AbortError') return;
+          }
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          const old = share.textContent;
+          share.textContent = 'Link copied';
+          setTimeout(() => { share.textContent = old; }, 1600);
+        } catch {
+          location.hash = 'tool-' + panel.dataset.toolKey;
+          share.textContent = 'Link ready';
+          setTimeout(() => { share.textContent = 'Share tool'; }, 1600);
+        }
+      });
+      controls.append(share);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      const target = event.target;
+      const typing = target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement || target?.isContentEditable;
+      const focusSearch = (event.key === '/' && !typing) || ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k');
+      if (focusSearch && search) {
+        event.preventDefault();
+        search.focus();
+        search.select();
+        search.scrollIntoView({behavior: 'smooth', block: 'center'});
+        return;
+      }
+      if (event.key === 'Escape') {
+        const openPanel = panels.find((panel) => panel.classList.contains('is-open'));
+        if (openPanel) {
+          openPanel.querySelector('.tool-open')?.click();
+          if (history.replaceState) history.replaceState(null, '', location.pathname + location.search);
+          openPanel.querySelector('.tool-open')?.focus();
+        } else if (typing) {
+          target.blur();
+        }
+      }
+    });
+  });
+})();
